@@ -59,7 +59,11 @@ npx create-nx-workspace@latest --preset=next
 cd .\nxdev-next-monorepo-tailwind\ 
 code . -r
 
-
+npx nx g @nx/next:app inventory
+# √ Which E2E test runner would you like to use? · playwright       
+# √ Would you like to use the App Router (recommended)? (Y/n) · true
+# √ Would you like to use `src/` directory? (Y/n) · true
+# √ What should be the project name and where should it be generated? · inventory @ apps/inventory
 ```
 
 ## Integrate with editors
