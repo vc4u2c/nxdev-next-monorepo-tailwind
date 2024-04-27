@@ -64,6 +64,12 @@ npx nx g @nx/next:app inventory
 # √ Would you like to use the App Router (recommended)? (Y/n) · true
 # √ Would you like to use `src/` directory? (Y/n) · true
 # √ What should be the project name and where should it be generated? · inventory @ apps/inventory
+
+px nx g @nx/next:lib orders --directory=libs/orders
+# √ Which stylesheet format would you like to use? · none
+# √ What should be the project name and where should it be generated? · orders @ libs/orders
+
+
 ```
 
 ## Integrate with editors

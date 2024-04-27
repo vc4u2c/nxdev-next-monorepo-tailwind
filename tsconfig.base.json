@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nxdev-next-monorepo-tailwind/orders": ["libs/orders/src/index.ts"],
+      "@nxdev-next-monorepo-tailwind/orders/server": [
+        "libs/orders/src/server.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
