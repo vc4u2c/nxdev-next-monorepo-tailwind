@@ -12,6 +12,9 @@ git clone https://github.com/vc4u2c/nxdev-next-monorepo-tailwind.git
 cd nxdev-react-monorepo-tailwind
 npm i
 
+# Building the Apps for Deployment
+npx nx run-many -t build
+
 # Run the apps
 npx nx dev store
 npx nx dev inventory
