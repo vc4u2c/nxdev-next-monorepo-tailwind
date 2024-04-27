@@ -8,18 +8,22 @@
 
 ```bash
 cd C:\Users\vinod.chandran\Documents\Source\Repos
-git clone https://github.com/vc4u2c/nxdev-next-monorepo-antd.git
+git clone https://github.com/vc4u2c/nxdev-next-monorepo-tailwind.git
 cd nxdev-react-monorepo-tailwind
 npm i
 
-# Building the Apps for Deployment
-TODO
+# Run the apps
+npx nx dev store
+npx nx dev inventory
 
 # Run Unit tests in parallel
-TODO
+npx nx run-many -t test
+npx nx view-logs
 
 # Run E2E tests in parallel
-TODO
+npx nx run-many -t e2e
+npx playwright show-report .\dist\.playwright\apps\store-e2e\playwright-report
+npx playwright show-report .\dist\.playwright\apps\inventory-e2e\playwright-report
 ```
 
 ## Monorepo Creation Setup
@@ -69,7 +73,17 @@ px nx g @nx/next:lib orders --directory=libs/orders
 # √ Which stylesheet format would you like to use? · none
 # √ What should be the project name and where should it be generated? · orders @ libs/orders
 
+npx nx g @nx/next:lib products --directory=libs/products
+# √ Which stylesheet format would you like to use? · none
+# √ What should be the project name and where should it be generated? · products @ libs/products
 
+npx nx g @nx/next:lib shared-ui --directory=libs/shared/ui
+# √ Which stylesheet format would you like to use? · none
+# √ What should be the project name and where should it be generated? · shared-ui @ libs/shared/ui
+
+# Run the Apps
+npx nx dev store
+npx nx dev inventory
 ```
 
 ## Integrate with editors
