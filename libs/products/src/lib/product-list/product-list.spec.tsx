@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
-import SharedUi from './shared-ui';
+import ProductList from './product-list';
 import React from 'react';
 
-describe('SharedUi', () => {
+describe('ProductList', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<SharedUi name="Share UI"/>);
+    const { baseElement } = render(<ProductList name="Product List" />);
     expect(baseElement).toBeTruthy();
   });
 });

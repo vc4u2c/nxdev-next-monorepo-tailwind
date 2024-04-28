@@ -3,7 +3,67 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/store",
   "projectType": "application",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project store --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "postcssConfig": "apps/store/postcss.config.js",
+        "outputPath": "dist/apps/store"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/store"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "store:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "store:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "store:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "store:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/store/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/store/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
 }

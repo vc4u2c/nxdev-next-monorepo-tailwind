@@ -12,12 +12,16 @@ git clone https://github.com/vc4u2c/nxdev-next-monorepo-tailwind.git
 cd nxdev-react-monorepo-tailwind
 npm i
 
+# Display all targets
+npx nx show project store --web
+npx nx show project inventory --web
+
 # Building the Apps for Deployment
 npx nx run-many -t build
 
 # Run the apps
-npx nx dev store
-npx nx dev inventory
+npx nx serve store
+npx nx serve inventory
 
 # Run Unit tests in parallel
 npx nx run-many -t test
@@ -27,6 +31,13 @@ npx nx view-logs
 npx nx run-many -t e2e
 npx playwright show-report .\dist\.playwright\apps\store-e2e\playwright-report
 npx playwright show-report .\dist\.playwright\apps\inventory-e2e\playwright-report
+
+# Linting
+npx nx run-many -t lint
+
+# Show the project dependency graph
+npx nx graph
+npx nx graph --affected
 ```
 
 ## Monorepo Creation Setup
@@ -63,11 +74,11 @@ npx create-nx-workspace@latest --preset=next
 # √ Default stylesheet format · tailwind
 # √ Do you want Nx Cloud to make your CI fast? · skip
 
-cd .\nxdev-next-monorepo-tailwind\ 
+cd .\nxdev-next-monorepo-tailwind\
 code . -r
 
 npx nx g @nx/next:app inventory
-# √ Which E2E test runner would you like to use? · playwright       
+# √ Which E2E test runner would you like to use? · playwright
 # √ Would you like to use the App Router (recommended)? (Y/n) · true
 # √ Would you like to use `src/` directory? (Y/n) · true
 # √ What should be the project name and where should it be generated? · inventory @ apps/inventory
@@ -84,9 +95,17 @@ npx nx g @nx/next:lib shared-ui --directory=libs/shared/ui
 # √ Which stylesheet format would you like to use? · none
 # √ What should be the project name and where should it be generated? · shared-ui @ libs/shared/ui
 
-# Run the Apps
-npx nx dev store
-npx nx dev inventory
+npx nx g @nx/next:component product-list --project=products --directory="libs/products/src/lib/product-list"
+# √ Which stylesheet format would you like to use? · none
+# √ Where should the component be generated? · libs/products/src/lib/product-list/product-list.tsx
+
+npx nx g @nx/next:component order-list --project=products --directory="libs/orders/src/lib/order-list"
+# √ Which stylesheet format would you like to use? · none
+# √ Where should the component be generated? · libs/products/src/lib/order-list/order-list.tsx
+
+#npx nx g @nx/next:page home --directory="apps/inventory/src/app/pages/home" --withTests
+
+npx nx g @nx/next:component home --project=products --directory="apps/inventory/src/app/pages/"
 ```
 
 ## Integrate with editors
