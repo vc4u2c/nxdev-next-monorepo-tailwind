@@ -105,9 +105,13 @@ npx nx g @nx/next:component order-list --project=products --directory="libs/orde
 # √ Which stylesheet format would you like to use? · none
 # √ Where should the component be generated? · libs/products/src/lib/order-list/order-list.tsx
 
+npx nx g @nx/next:component order-details --directory="libs/orders/src/lib/order-details"
+# √ Which stylesheet format would you like to use? · none
+# √ Where should the component be generated? · libs/orders/src/lib/order-details/order-details.tsx
+
 #npx nx g @nx/next:page home --directory="apps/inventory/src/app/pages/home" --withTests
 
-npx nx g @nx/next:component home --directory="apps/inventory/src/app/pages/"
+npx nx g @nx/next:component profile --directory="apps/inventory/src/app/profile/"
 ```
 
 ## Integrate with editors

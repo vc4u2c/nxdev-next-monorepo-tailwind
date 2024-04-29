@@ -15,10 +15,21 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./libs/shared/ui/src/lib/*"],
       "@nxdev-next-monorepo-tailwind/orders": ["libs/orders/src/index.ts"],
+      "@nxdev-next-monorepo-tailwind/orders/server": [
+        "libs/orders/src/server.ts"
+      ],
       "@nxdev-next-monorepo-tailwind/products": ["libs/products/src/index.ts"],
-      "@nxdev-next-monorepo-tailwind/shared-ui": ["libs/shared/ui/src/index.ts"]
+      "@nxdev-next-monorepo-tailwind/products/server": [
+        "libs/products/src/server.ts"
+      ],
+      "@nxdev-next-monorepo-tailwind/shared-ui": [
+        "libs/shared/ui/src/index.ts"
+      ],
+      "@nxdev-next-monorepo-tailwind/shared-ui/server": [
+        "libs/shared/ui/src/server.ts"
+      ],
+      "@/*": ["./libs/shared/ui/src/lib/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

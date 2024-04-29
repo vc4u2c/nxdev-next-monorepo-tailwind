@@ -18,11 +18,11 @@ export default function RootLayout({
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         </head>
         <body>
-          <header>
+          <header className="bg-orange-500 p-2 font-mono font-bold text-center">
             <p>Header</p>
           </header>
           {children}
-          <footer>
+          <footer className="bg-cyan-500 p-2 font-mono font-bold text-center">
             <p>Footer</p>
           </footer>
         </body>
