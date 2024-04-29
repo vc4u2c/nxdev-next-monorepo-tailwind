@@ -14,7 +14,9 @@ npm i
 
 # Display all targets
 npx nx show project store --web
+npx nx show project store-e2e --web
 npx nx show project inventory --web
+npx nx show project inventory-e2e --web
 
 # Building the Apps for Deployment
 npx nx run-many -t build
@@ -105,7 +107,7 @@ npx nx g @nx/next:component order-list --project=products --directory="libs/orde
 
 #npx nx g @nx/next:page home --directory="apps/inventory/src/app/pages/home" --withTests
 
-npx nx g @nx/next:component home --project=products --directory="apps/inventory/src/app/pages/"
+npx nx g @nx/next:component home --directory="apps/inventory/src/app/pages/"
 ```
 
 ## Integrate with editors

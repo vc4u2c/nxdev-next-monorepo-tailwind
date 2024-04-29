@@ -29,7 +29,8 @@
       "configurations": {
         "development": {
           "buildTarget": "inventory:build:development",
-          "dev": true
+          "dev": true,
+          "port": 4300
         },
         "production": {
           "buildTarget": "inventory:build:production",
