@@ -29,7 +29,7 @@
       "@nxdev-next-monorepo-tailwind/shared-ui/server": [
         "libs/shared/ui/src/server.ts"
       ],
-      "@/*": ["./libs/shared/ui/src/lib/*"]
+      "@/*": ["./libs/shared/ui/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

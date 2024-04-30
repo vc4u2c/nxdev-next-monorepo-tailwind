@@ -1,6 +1,7 @@
 'use client';
 import { SharedUi } from '@nxdev-next-monorepo-tailwind/shared-ui';
 import Link from 'next/link';
+import { Button } from '@/lib/ui/button';
 
 /* eslint-disable-next-line */
 export interface PageProps {}
@@ -11,6 +12,7 @@ export default function Index(props: PageProps) {
       <div>
         <h1>Inventory App: Home</h1>
       </div>
+      <Button>Show Inventory</Button>
       <SharedUi name="Shared UI" />
       <ul>
         <li>

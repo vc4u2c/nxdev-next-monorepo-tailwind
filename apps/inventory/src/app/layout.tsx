@@ -4,8 +4,10 @@ import { StrictMode } from 'react';
 
 export default function RootLayout({
   children,
+  session,
 }: {
   children: React.ReactNode;
+  session: never;
 }) {
   return (
     <StrictMode>

@@ -112,6 +112,25 @@ npx nx g @nx/next:component order-details --directory="libs/orders/src/lib/order
 #npx nx g @nx/next:page home --directory="apps/inventory/src/app/pages/home" --withTests
 
 npx nx g @nx/next:component profile --directory="apps/inventory/src/app/profile/"
+
+# https://ui.shadcn.com/docs/installation/next
+npx shadcn-ui@latest init
+# √ Would you like to use TypeScript (recommended)? ... no / yes
+# √ Which style would you like to use? » Default
+# √ Which color would you like to use as base color? » Slate
+# √ Where is your global CSS file? ... globals.css
+# √ Are you using a custom tailwind prefix eg. tw-? (Leave blank if not) ...
+# √ Where is your tailwind.config.js located? ... tailwind.config.js
+# √ Configure the import alias for components: ... @/lib
+# √ Configure the import alias for utils: ... @/lib/utils
+# √ Are you using React Server Components? ... no / yes
+# √ Write configuration to components.json. Proceed? ... yes
+
+npx shadcn-ui@latest add button
+
+# https://stackoverflow.com/questions/70430316/how-to-add-module-aliases-to-jest-testing-in-next-js
+npm i -D ts-jest
+
 ```
 
 ## Integrate with editors

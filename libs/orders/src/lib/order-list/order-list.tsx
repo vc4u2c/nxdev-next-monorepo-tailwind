@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { Button } from '@/lib/ui/button';
 
 /* eslint-disable-next-line */
 export interface OrderListProps {
@@ -11,6 +12,7 @@ export function OrderList(props: OrderListProps) {
   return (
     <div className="bg-green-500 p-2 font-mono font-semibold text-center">
       <h2>{props.name}</h2>
+      <Button>Show Orders</Button>
       <h3>
         <Link href="orders/1">Order 1</Link>
       </h3>

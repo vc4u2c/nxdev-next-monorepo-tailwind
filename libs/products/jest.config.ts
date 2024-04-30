@@ -1,3 +1,6 @@
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('../../tsconfig');
+
 /* eslint-disable */
 export default {
   displayName: 'products',
@@ -8,4 +11,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/products',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 };

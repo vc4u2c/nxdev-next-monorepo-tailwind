@@ -1,6 +1,5 @@
 'use client';
 import { OrderList } from '@nxdev-next-monorepo-tailwind/orders';
-import Link from 'next/link';
 
 /* eslint-disable-next-line */
 export interface OrdersProps {}
