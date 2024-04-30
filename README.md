@@ -127,9 +127,14 @@ npx shadcn-ui@latest init
 # √ Write configuration to components.json. Proceed? ... yes
 
 npx shadcn-ui@latest add button
+npx shadcn-ui@latest add avatar popover seperator
+npx shadcn-ui@latest add dropdown-menu input form
 
 # https://stackoverflow.com/questions/70430316/how-to-add-module-aliases-to-jest-testing-in-next-js
 npm i -D ts-jest
+
+# https://github.com/jorenvanhee/tailwindcss-debug-screens
+npm i tailwindcss-debug-screens --save-dev
 
 ```
 
