@@ -24,7 +24,7 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "store:build",
-        "dev": true
+        "dev": false
       },
       "configurations": {
         "development": {

@@ -1,6 +1,4 @@
 'use client';
-import { SharedUi } from '@nxdev-next-monorepo-tailwind/shared-ui';
-import Link from 'next/link';
 import { Button } from '@/lib/ui/button';
 
 /* eslint-disable-next-line */
@@ -8,20 +6,17 @@ export interface PageProps {}
 
 export default function Index(props: PageProps) {
   return (
-    <div className="bg-indigo-500 p-2 font-mono font-bold text-center">
-      <div>
-        <h1>Inventory App: Home</h1>
+    <main>
+      <section className="py-12 flex flex-col items-center text-center gap-8">
+        <h1 className="text-4xl font-bold">Inventory Home</h1>
+        <p className="text-2xl text-muted-foreground">
+          This is the Acme Incorporation&apos;s Inventory Management application.
+        </p>
+      </section>
+      <div className="flex gap-6 items-center justify-center">
+        <Button variant={'secondary'}>Learn More</Button>
+        <Button>Contact Us</Button>
       </div>
-      <Button>Show Inventory</Button>
-      <SharedUi name="Shared UI" />
-      <ul>
-        <li>
-          <Link href="/profile">Profile</Link>
-        </li>
-        <li>
-          <Link href="/orders">Orders</Link>
-        </li>
-      </ul>
-    </div>
+    </main>
   );
 }
