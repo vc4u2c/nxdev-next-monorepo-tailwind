@@ -32,7 +32,7 @@ function nameToInitials(fullName: string) {
 
 export function Header(props: HeaderProps) {
   return (
-    <header className="border-b py-2">
+    <header className="py-0.5">
       <nav>
         <ul className="flex items-center justify-between">
           <li>

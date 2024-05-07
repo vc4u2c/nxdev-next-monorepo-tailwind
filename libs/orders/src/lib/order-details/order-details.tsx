@@ -7,8 +7,8 @@ export interface OrderDetailsProps {}
 export function OrderDetails(props: OrderDetailsProps) {
   const params = useParams();
   return (
-    <div className="bg-gray-500 p-2 font-mono font-semibold text-center">
-      <h3>Order Details: { params == null ?? params['orderId']}</h3>
+    <div className="p-2 font-mono font-semibold text-center">
+      <h3>Order Details: {params['orderId']}</h3>
     </div>
   );
 }
