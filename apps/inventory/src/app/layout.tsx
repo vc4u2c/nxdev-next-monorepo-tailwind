@@ -38,7 +38,7 @@ export default function RootLayout({
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         </head>
         <body
-          className={cn('min-h-screen w-full flex flex-col', inter.className, {
+          className={cn('min-h-screen w-full flex flex-col antialiased', inter.className, {
             'debug-screens': process.env.NODE_ENV === 'development',
           })}
         >

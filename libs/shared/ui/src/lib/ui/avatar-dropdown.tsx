@@ -29,7 +29,7 @@ export function AvatarDropdown(props: AvatarDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar>
+        <Avatar className='cursor-pointer'>
           <AvatarImage src={props.avatar} alt={props.name} />
           <AvatarFallback>{nameToInitials(props.name)}</AvatarFallback>
         </Avatar>
