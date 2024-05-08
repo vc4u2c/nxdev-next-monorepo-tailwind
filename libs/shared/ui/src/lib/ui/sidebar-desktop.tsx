@@ -29,9 +29,9 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
   }
 
   return (
-    <div className="relative min-w-[80px] border-r px-3 pb-10 pt-24">
+    <div className="relative min-w-[80px] border-r px-2 pb-2 pt-12">
       {!isMobile && (
-        <div className="absolute right-[-20px] top-7">
+        <div className="absolute right-[-20px] top-0">
           <Button
             onClick={toggleSidebar} 
             variant="secondary"
@@ -48,7 +48,7 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
             title: 'Dashboard',
             href: '/',
             icon: LayoutDashboard,
-            variant: 'default',
+            variant: 'ghost',
           },
           {
             title: 'Profile',
