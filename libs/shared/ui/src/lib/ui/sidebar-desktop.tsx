@@ -8,6 +8,7 @@ import {
   ChevronRight,
   ChevronLeft,
   UserRound,
+  Home,
 } from 'lucide-react';
 import { Button } from './button';
 import { useWindowWidth } from '@react-hook/window-size';
@@ -31,9 +32,9 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
   return (
     <div className="relative min-w-[80px] border-r px-2 pb-2 pt-12">
       {!isMobile && (
-        <div className="absolute right-[-20px] top-0">
+        <div className="absolute right-[-20px] top-0.5">
           <Button
-            onClick={toggleSidebar} 
+            onClick={toggleSidebar}
             variant="secondary"
             className=" rounded-full p-2"
           >
@@ -45,8 +46,14 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
         isCollapsed={isMobile ? true : isCollapsed}
         links={[
           {
-            title: 'Dashboard',
+            title: 'Home',
             href: '/',
+            icon: Home,
+            variant: 'ghost',
+          },
+          {
+            title: 'Dashboard',
+            href: '/dashboard',
             icon: LayoutDashboard,
             variant: 'ghost',
           },

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Separator } from './separator';
 import { AvatarDropdown } from './avatar-dropdown';
 import { ThemeToggle } from './theme-toggle';
+import Link from 'next/link';
 
 export interface HeaderAppInfo {
   companyName: string;
@@ -32,55 +33,52 @@ function nameToInitials(fullName: string) {
 
 export function Header(props: HeaderProps) {
   return (
-    <header className="py-0.5">
-      <nav>
-        <ul className="flex items-center justify-between">
-          <li>
-            <div>
-              <Image
-                src={props.headerAppInfo.companyIcon}
-                alt={props.headerAppInfo.companyName}
-                className="dark:invert"
-                width={60}
-                height={60}
-                priority
-              />
-            </div>
-          </li>
-          <li>
-            <div className="font-semibold text-2xl">
+    <header className="sticky top-0 z-40 w-full border-b">
+      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0 pt-0.5">
+        <div className="flex flex-1 items-center justify-start">
+          <Link href="/" className="flex items-center space-x-2">
+            <Image
+              src={props.headerAppInfo.companyIcon}
+              alt={props.headerAppInfo.companyName}
+              className="dark:invert"
+              width={50}
+              height={50}
+              priority
+            />
+            <span className="inline-block font-bold text-2xl">
               {props.headerAppInfo.companyName}
-              <Separator orientation="vertical" />
-            </div>
-          </li>
-          <li>
+            </span>
+          </Link>
+          <Separator orientation="vertical" className="w-[8px]" />
+          <Link href="/" className="flex items-center space-x-2">
             <Image
               src={props.headerAppInfo.appIcon}
               alt={props.headerAppInfo.appName}
               className="dark:invert"
-              width={40}
-              height={40}
+              width={30}
+              height={30}
               priority
             />
-          </li>
-          <li>
-            <div className="font-semibold text-l">
+            <span className="inline-block font-semibold">
               {props.headerAppInfo.appName}
-            </div>
-          </li>
-          <li>
-            <div className="text-xs">{props.headerUserInfo.name}</div>
-            <Separator />
-            <div className="text-xs">{props.headerUserInfo.email}</div>
-          </li>
-          <li>
+            </span>
+          </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-end space-x-4">
+          <nav className="flex items-center space-x-4">
             <ThemeToggle />
-          </li>
-          <li>
-            <AvatarDropdown name={props.headerUserInfo.name} avatar={props.headerUserInfo.avatar} />
-          </li>
-        </ul>
-      </nav>
+            <div className="">
+              <div className="text-xs">{props.headerUserInfo.name}</div>
+              <Separator />
+              <div className="text-xs">{props.headerUserInfo.email}</div>
+            </div>
+            <AvatarDropdown
+              name={props.headerUserInfo.name}
+              avatar={props.headerUserInfo.avatar}
+            />
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }

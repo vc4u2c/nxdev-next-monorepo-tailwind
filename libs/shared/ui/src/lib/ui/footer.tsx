@@ -6,7 +6,7 @@ export interface FooterProps {
 
 export function Footer(props: FooterProps) {
   return (
-    <footer className="p-4 text-center border-t">
+    <footer className="p-3 text-right border-t text-xs">
       © {props.companyName} {new Date().getFullYear()}
     </footer>
   );

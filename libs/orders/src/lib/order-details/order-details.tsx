@@ -8,7 +8,11 @@ export function OrderDetails(props: OrderDetailsProps) {
   const params = useParams();
   return (
     <div className="p-2 font-mono font-semibold text-center">
-      <h3>Order Details: {params['orderId']}</h3>
+      {params == null || params['orderId'] == null ? (
+        <h3>Order Details</h3>
+      ) : (
+        <h3>Order Details: {params['orderId']}</h3>
+      )}
     </div>
   );
 }

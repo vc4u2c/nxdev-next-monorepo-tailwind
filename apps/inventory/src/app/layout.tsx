@@ -9,7 +9,6 @@ import { ThemeProvider } from '@/lib/ui/theme-provider';
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
-
 export default function RootLayout({
   children,
 }: {
@@ -38,20 +37,24 @@ export default function RootLayout({
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         </head>
         <body
-          className={cn('min-h-screen w-full flex flex-col antialiased', inter.className, {
+          className={cn('min-h-screen antialiased', inter.className, {
             'debug-screens': process.env.NODE_ENV === 'development',
           })}
         >
-          <ThemeProvider attribute="class" defaultTheme="system">
-            <Header
-              headerAppInfo={headerAppInfo}
-              headerUserInfo={headerUserInfo}
-            />
-            <div className="flex flex-grow">
-              <SidebarDesktop />
-              <main className="p-4 flex justify-center items-start">{children}</main>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <div className="relative flex min-h-screen flex-col">
+              <Header
+                headerAppInfo={headerAppInfo}
+                headerUserInfo={headerUserInfo}
+              />
+              <div className="flex flex-grow">
+                <SidebarDesktop />
+                <main className="flex-1">
+                  {children}
+                </main>
+              </div>
+              <Footer companyName="Acme Inc." />
             </div>
-            <Footer companyName="Acme Inc." />
           </ThemeProvider>
         </body>
       </html>

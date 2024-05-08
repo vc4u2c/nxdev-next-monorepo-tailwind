@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/lib/ui/button';
+import { PageTitle } from '@/lib/ui/page-title';
 import {
   Form,
   FormControl,
@@ -40,8 +41,9 @@ export default function Profile() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 my-12 border-muted rounded-lg"
+        className="space-y-4 py-4 border-muted rounded-lg flex flex-col items-center text-center"
       >
+        <PageTitle title="Profile" />
         <FormField
           control={form.control}
           name="name"
@@ -68,7 +70,7 @@ export default function Profile() {
                 <Input placeholder="jdoe@gmail.com" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
+                This is your email address.
               </FormDescription>
               <FormMessage />
             </FormItem>

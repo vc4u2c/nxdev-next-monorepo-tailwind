@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/lib/ui/button';
+import PageTitle from '@/lib/ui/page-title';
 
 /* eslint-disable-next-line */
 export interface PageProps {}
@@ -7,10 +8,11 @@ export interface PageProps {}
 export default function Index(props: PageProps) {
   return (
     <main>
-      <section className="py-12 flex flex-col items-center text-center gap-8">
-        <h1 className="text-4xl font-bold">Inventory Home</h1>
-        <p className="text-2xl text-muted-foreground">
-          This is the Acme Incorporation&apos;s Inventory Management application.
+      <section className="py-4 border-muted rounded-lg flex flex-col items-center text-center">
+        <PageTitle title="Inventory Home" />
+        <p className="text-xl text-muted-foreground">
+          This is the Acme Incorporation&apos;s Inventory Management
+          application.
         </p>
       </section>
       <div className="flex gap-6 items-center justify-center">
