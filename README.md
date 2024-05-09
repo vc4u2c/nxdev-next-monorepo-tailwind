@@ -133,6 +133,8 @@ npx shadcn-ui@latest add separator
 npx shadcn-ui@latest add tooltip
 npx shadcn-ui@latest add table
 npx shadcn-ui@latest add badge
+npx shadcn-ui@latest add select
+npx shadcn-ui@latest add checkbox
 npm i @tanstack/react-table
 
 # https://stackoverflow.com/questions/70430316/how-to-add-module-aliases-to-jest-testing-in-next-js

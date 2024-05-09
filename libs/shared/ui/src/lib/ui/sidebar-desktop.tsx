@@ -32,7 +32,7 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
   return (
     <div className="relative min-w-[80px] border-r px-2 py-4">
       {!isMobile && (
-        <div className="absolute right-[-16px] top-0">
+        <div className="absolute right-[-14px] top-0">
           <Button
             onClick={toggleSidebar}
             variant="secondary"

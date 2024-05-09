@@ -12,6 +12,7 @@
 'use client';
 import Link from 'next/link';
 import { DataTable } from '@/lib/ui/data-table';
+import { Checkbox } from '@/lib/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/lib/ui/badge';
@@ -29,6 +30,28 @@ type Payment = {
 };
 
 const columns: ColumnDef<Payment>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: 'order',
     header: 'Order',
