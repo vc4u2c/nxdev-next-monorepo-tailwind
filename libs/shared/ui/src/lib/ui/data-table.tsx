@@ -1,7 +1,4 @@
-/** @format */
-
 'use client';
-
 import {
   ColumnDef,
   flexRender,
@@ -9,7 +6,6 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-
 import {
   Table,
   TableBody,

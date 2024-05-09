@@ -3,20 +3,18 @@
  *
  * @format
  */
-
 /**
  * eslint-disable @next/next/no-img-element
  *
  * @format
  */
-
 /** @format */
 'use client';
-
 import Link from 'next/link';
 import { DataTable } from '@/lib/ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
+import { Badge } from '@/lib/ui/badge';
 
 /* eslint-disable-next-line */
 export interface OrderListProps {
@@ -34,21 +32,27 @@ const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'order',
     header: 'Order',
+    cell: ({ row }) => {
+      const orderId: string = row.getValue('order');
+      return <Link href={`orders/${orderId}`}>{orderId}</Link>;
+    },
   },
   {
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => {
       return (
-        <div
-          className={cn('font-medium w-fit px-4 py-2 rounded-lg', {
-            'bg-red-200 dark:bg-red-400': row.getValue('status') === 'Pending',
-            'bg-orange-200 dark:bg-orange-400': row.getValue('status') === 'Processing',
-            'bg-green-200 dark:bg-red-400': row.getValue('status') === 'Completed',
+        <Badge
+          className={cn({
+            'bg-red-600 dark:bg-red-400': row.getValue('status') === 'Pending',
+            'bg-orange-600 dark:bg-orange-400':
+              row.getValue('status') === 'Processing',
+            'bg-green-600 dark:bg-green-400':
+              row.getValue('status') === 'Completed',
           })}
         >
           {row.getValue('status')}
-        </div>
+        </Badge>
       );
     },
   },
@@ -160,18 +164,6 @@ export function OrderList(props: OrderListProps) {
   return (
     <div className="flex flex-col gap-5 w-3/4">
       <DataTable columns={columns} data={data} />
-      <h3>
-        <Link href="orders/1">Order 1</Link>
-      </h3>
-      <h3>
-        <Link href="orders/2">Order 2</Link>
-      </h3>
-      <h3>
-        <Link href="orders/3">Order 3</Link>
-      </h3>
-      <h3>
-        <Link href={`orders/${orderId}`}>Order {orderId}</Link>
-      </h3>
     </div>
   );
 }

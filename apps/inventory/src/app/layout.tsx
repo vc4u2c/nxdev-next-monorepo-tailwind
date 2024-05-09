@@ -49,9 +49,7 @@ export default function RootLayout({
               />
               <div className="flex flex-grow">
                 <SidebarDesktop />
-                <main className="flex-1">
-                  {children}
-                </main>
+                <main className="flex-1">{children}</main>
               </div>
               <Footer companyName="Acme Inc." />
             </div>
