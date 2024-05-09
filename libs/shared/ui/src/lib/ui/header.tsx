@@ -33,9 +33,9 @@ function nameToInitials(fullName: string) {
 
 export function Header(props: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 w-full border-b">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0 pt-0.5">
-        <div className="flex flex-1 items-center justify-start">
+    <header className="sticky top-0 z-40 w-full border-b bg-background">
+      <div className="flex h-14 items-center space-x-4 sm:justify-between sm:space-x-0 pt-0.5">
+        <div className="flex flex-1 items-center justify-start pl-2">
           <Link href="/" className="flex items-center space-x-2">
             <Image
               src={props.headerAppInfo.companyIcon}
@@ -64,10 +64,10 @@ export function Header(props: HeaderProps) {
             </span>
           </Link>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex flex-1 items-center justify-end space-x-4 pr-2">
           <nav className="flex items-center space-x-4">
             <ThemeToggle />
-            <div className="">
+            <div>
               <div className="text-xs">{props.headerUserInfo.name}</div>
               <Separator />
               <div className="text-xs">{props.headerUserInfo.email}</div>

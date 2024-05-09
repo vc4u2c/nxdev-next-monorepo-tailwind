@@ -30,13 +30,13 @@ export function SidebarDesktop(props: SidebarDesktopProps) {
   }
 
   return (
-    <div className="relative min-w-[80px] border-r px-2 pb-2 pt-12">
+    <div className="relative min-w-[80px] border-r px-2 py-4">
       {!isMobile && (
-        <div className="absolute right-[-20px] top-0.5">
+        <div className="absolute right-[-16px] top-0">
           <Button
             onClick={toggleSidebar}
             variant="secondary"
-            className=" rounded-full p-2"
+            className="rounded-full p-2 w-7 h-7"
           >
             {isMobile || isCollapsed ? <ChevronRight /> : <ChevronLeft />}
           </Button>

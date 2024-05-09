@@ -15,10 +15,10 @@ export default function Index(props: PageProps) {
           application.
         </p>
       </section>
-      <div className="flex gap-6 items-center justify-center">
+      <section className="flex gap-6 items-center justify-center">
         <Button variant={'secondary'}>Learn More</Button>
         <Button>Contact Us</Button>
-      </div>
+      </section>
     </main>
   );
 }
