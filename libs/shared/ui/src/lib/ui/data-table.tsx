@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -20,16 +21,25 @@ import {
   TableRow,
 } from './table';
 import { Button } from './button';
-import { useState } from 'react';
+import { Input } from './input';
+import { DataTableViewOptions } from './data-table-view-options';
+import { DataTablePagination } from './data-table-pagination';
+
+export interface Filter {
+  accessorKey: string;
+  palceHolder: string;
+}
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filter: Filter;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filter,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -56,6 +66,24 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder={filter.palceHolder}
+          value={
+            (table.getColumn(filter.accessorKey)?.getFilterValue() as string) ??
+            ''
+          }
+          onChange={(event) =>
+            table
+              .getColumn(filter.accessorKey)
+              ?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
+      <div className="py-4">
+        <DataTableViewOptions table={table} />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -106,29 +134,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-start space-x-2 py-4">
-        <div className="flex flex-1 items-center justify-start text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
+      <div className="py-4">
+        <DataTablePagination table={table} />
       </div>
     </div>
   );

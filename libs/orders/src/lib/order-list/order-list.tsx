@@ -11,7 +11,7 @@
 /** @format */
 'use client';
 import Link from 'next/link';
-import { DataTable } from '@/lib/ui/data-table';
+import { DataTable, Filter } from '@/lib/ui/data-table';
 import { Checkbox } from '@/lib/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
@@ -233,11 +233,17 @@ const data: Payment[] = [
   },
 ];
 
+
+const filter: Filter = {
+  accessorKey: 'method',
+  palceHolder: 'Filter methods...',
+};
+
 export function OrderList(props: OrderListProps) {
   const orderId = 100;
   return (
     <div className="flex flex-col gap-5 w-3/4">
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data} filter={filter}/>
     </div>
   );
 }
