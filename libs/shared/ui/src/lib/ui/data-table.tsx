@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -7,11 +6,14 @@ import {
   VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+
 import {
   Table,
   TableBody,
@@ -20,15 +22,10 @@ import {
   TableHeader,
   TableRow,
 } from './table';
-import { Button } from './button';
-import { Input } from './input';
-import { DataTableViewOptions } from './data-table-view-options';
-import { DataTablePagination } from './data-table-pagination';
 
-export interface Filter {
-  accessorKey: string;
-  palceHolder: string;
-}
+import { DataTablePagination } from './data-table-pagination';
+import { DataTableToolbar, Filter } from './data-table-toolbar';
+import { useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,49 +38,36 @@ export function DataTable<TData, TValue>({
   data,
   filter,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
-      columnFilters,
       columnVisibility,
       rowSelection,
+      columnFilters,
     },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder={filter.palceHolder}
-          value={
-            (table.getColumn(filter.accessorKey)?.getFilterValue() as string) ??
-            ''
-          }
-          onChange={(event) =>
-            table
-              .getColumn(filter.accessorKey)
-              ?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
-      <div className="py-4">
-        <DataTableViewOptions table={table} />
-      </div>
+    <div className="space-y-4">
+      <DataTableToolbar table={table} filter={filter} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -91,7 +75,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} colSpan={header.colSpan}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -134,9 +118,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="py-4">
-        <DataTablePagination table={table} />
-      </div>
+      <DataTablePagination table={table} />
     </div>
   );
 }

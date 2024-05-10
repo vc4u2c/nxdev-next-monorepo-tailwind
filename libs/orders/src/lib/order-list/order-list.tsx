@@ -11,13 +11,15 @@
 /** @format */
 'use client';
 import Link from 'next/link';
-import { DataTable, Filter } from '@/lib/ui/data-table';
+import { DataTable } from '@/lib/ui/data-table';
+import { Filter } from '@/lib/ui/data-table-toolbar';
+import { DataTableRowActions } from '@/lib/ui/data-table-row-actions';
 import { Checkbox } from '@/lib/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/lib/ui/badge';
-import { Button } from '@/lib/ui/button';
-import { ArrowUpDown } from 'lucide-react';
+import { DataTableColumnHeader } from '@/lib/ui/data-table-column-header';
+import { CircleDotIcon, CpuIcon, ShieldCheck } from 'lucide-react';
 
 /* eslint-disable-next-line */
 export interface OrderListProps {
@@ -62,19 +64,13 @@ const columns: ColumnDef<Payment>[] = [
       const orderId: string = row.getValue('order');
       return <Link href={`orders/${orderId}`}>{orderId}</Link>;
     },
+    enableSorting: false,
+    enableHiding: false,    
   },
   {
     accessorKey: 'status',
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Status" />;
     },
     cell: ({ row }) => {
       return (
@@ -91,19 +87,14 @@ const columns: ColumnDef<Payment>[] = [
         </Badge>
       );
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: 'lastOrder',
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Last Order
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Last Order" />;
     },
   },
   {
@@ -122,6 +113,10 @@ const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'method',
     header: 'Method',
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];
 
@@ -233,17 +228,35 @@ const data: Payment[] = [
   },
 ];
 
-
 const filter: Filter = {
-  accessorKey: 'method',
-  palceHolder: 'Filter methods...',
+  primaryFilterAccessorKey: 'method',
+  primaryFilterPlaceholder: 'Filter methods...',
+  primaryFacetedFilterAccessorKey: 'status',
+  primaryFacetedFilterTitle: 'Status',
+  primaryFacetedFilterOptions: [
+    {
+      label: 'Pending',
+      value: 'Pending',
+      icon: CircleDotIcon,
+    },
+    {
+      label: 'Processing',
+      value: 'Processing',
+      icon: CpuIcon,
+    },
+    {
+      label: 'Completed',
+      value: 'Completed',
+      icon: ShieldCheck,
+    },
+  ],
 };
 
 export function OrderList(props: OrderListProps) {
   const orderId = 100;
   return (
     <div className="flex flex-col gap-5 w-3/4">
-      <DataTable columns={columns} data={data} filter={filter}/>
+      <DataTable columns={columns} data={data} filter={filter} />
     </div>
   );
 }

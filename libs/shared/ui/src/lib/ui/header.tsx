@@ -22,15 +22,6 @@ export interface HeaderProps {
   headerUserInfo: HeaderUserInfo;
 }
 
-function nameToInitials(fullName: string) {
-  const nameParts = fullName.split(' ');
-  let initials = '';
-  for (const part of nameParts) {
-    initials += part.charAt(0).toUpperCase();
-  }
-  return initials;
-}
-
 export function Header(props: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">

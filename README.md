@@ -40,6 +40,11 @@ npx nx run-many -t lint
 # Show the project dependency graph
 npx nx graph
 npx nx graph --affected
+
+# Check Vulnerabilities
+npm audit
+npm audit fix
+npm audit fix --force
 ```
 
 ## Monorepo Creation Setup
@@ -135,6 +140,8 @@ npx shadcn-ui@latest add table
 npx shadcn-ui@latest add badge
 npx shadcn-ui@latest add select
 npx shadcn-ui@latest add checkbox
+npx shadcn-ui@latest add command
+npm i @radix-ui/react-icons
 npm i @tanstack/react-table
 
 # https://stackoverflow.com/questions/70430316/how-to-add-module-aliases-to-jest-testing-in-next-js
