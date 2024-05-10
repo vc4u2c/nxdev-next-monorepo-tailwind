@@ -16,6 +16,8 @@ import { Checkbox } from '@/lib/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/lib/ui/badge';
+import { Button } from '@/lib/ui/button';
+import { ArrowUpDown } from 'lucide-react';
 
 /* eslint-disable-next-line */
 export interface OrderListProps {
@@ -62,7 +64,17 @@ const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return (
         <Badge
@@ -81,7 +93,17 @@ const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'lastOrder',
-    header: 'Last Order',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Last Order
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: 'method',
