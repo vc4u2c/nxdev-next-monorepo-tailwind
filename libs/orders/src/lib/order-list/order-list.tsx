@@ -28,6 +28,7 @@ type Payment = {
   order: string;
   status: string;
   lastOrder: string;
+  amount: number;
   method: string;
 };
 
@@ -106,6 +107,19 @@ const columns: ColumnDef<Payment>[] = [
     },
   },
   {
+    accessorKey: 'amount',
+    header: () => <div className="text-right">Amount</div>,
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue('amount'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
+  },
+  {
     accessorKey: 'method',
     header: 'Method',
   },
@@ -116,90 +130,105 @@ const data: Payment[] = [
     order: 'ORD001',
     status: 'Pending',
     lastOrder: '2023-01-15',
+    amount: 300,
     method: 'Credit Card',
   },
   {
     order: 'ORD002',
     status: 'Processing',
     lastOrder: '2023-02-20',
+    amount: 50.6785,
     method: 'PayPal',
   },
   {
     order: 'ORD003',
     status: 'Completed',
     lastOrder: '2023-03-10',
+    amount: 500.76,
     method: 'Stripe',
   },
   {
     order: 'ORD004',
     status: 'Pending',
     lastOrder: '2023-04-05',
+    amount: 275.14,
     method: 'Venmo',
   },
   {
     order: 'ORD005',
     status: 'Completed',
     lastOrder: '2023-05-12',
+    amount: 112,
     method: 'Bank Transfer',
   },
   {
     order: 'ORD006',
     status: 'Processing',
     lastOrder: '2023-06-18',
+    amount: 135.67,
     method: 'Apple Pay',
   },
   {
     order: 'ORD007',
     status: 'Completed',
     lastOrder: '2023-07-22',
+    amount: 675.64,
     method: 'Google Pay',
   },
   {
     order: 'ORD008',
     status: 'Pending',
     lastOrder: '2023-08-30',
+    amount: 100.14,
     method: 'Cryptocurrency',
   },
   {
     order: 'ORD009',
     status: 'Processing',
     lastOrder: '2023-09-05',
+    amount: 300.34,
     method: 'Alipay',
   },
   {
     order: 'ORD010',
     status: 'Completed',
     lastOrder: '2023-10-18',
+    amount: 130.14,
     method: 'WeChat Pay',
   },
   {
     order: 'ORD011',
     status: 'Pending',
     lastOrder: '2023-11-25',
+    amount: 103.14,
     method: 'Square Cash',
   },
   {
     order: 'ORD012',
     status: 'Completed',
     lastOrder: '2023-12-08',
+    amount: 100.14,
     method: 'Zelle',
   },
   {
     order: 'ORD013',
     status: 'Processing',
     lastOrder: '2024-01-15',
+    amount: 100.14,
     method: 'Stripe',
   },
   {
     order: 'ORD014',
     status: 'Completed',
     lastOrder: '2024-02-20',
+    amount: 130.14,
     method: 'PayPal',
   },
   {
     order: 'ORD015',
     status: 'Pending',
     lastOrder: '2024-03-30',
+    amount: 101.14,
     method: 'Credit Card',
   },
 ];
