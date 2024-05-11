@@ -141,8 +141,11 @@ npx shadcn-ui@latest add badge
 npx shadcn-ui@latest add select
 npx shadcn-ui@latest add checkbox
 npx shadcn-ui@latest add command
+npx shadcn-ui@latest add toast
 npm i @radix-ui/react-icons
 npm i @tanstack/react-table
+npm i react-icons
+
 
 # https://stackoverflow.com/questions/70430316/how-to-add-module-aliases-to-jest-testing-in-next-js
 npm i -D ts-jest
@@ -151,7 +154,7 @@ npm i -D ts-jest
 npm i tailwindcss-debug-screens --save-dev
 
 npm i @react-hook/window-size
-
+npm i json-as-xlsx
 ```
 
 ## Integrate with editors

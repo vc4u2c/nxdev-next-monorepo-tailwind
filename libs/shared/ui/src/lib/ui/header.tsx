@@ -31,12 +31,12 @@ export function Header(props: HeaderProps) {
             <Image
               src={props.headerAppInfo.companyIcon}
               alt={props.headerAppInfo.companyName}
-              className="dark:invert"
+              className="dark:invert max-sm:w-10 max-sm:h-10"
               width={50}
               height={50}
               priority
             />
-            <span className="inline-block font-bold text-2xl">
+            <span className="inline-block font-bold text-2xl max-sm:hidden">
               {props.headerAppInfo.companyName}
             </span>
           </Link>
@@ -45,12 +45,12 @@ export function Header(props: HeaderProps) {
             <Image
               src={props.headerAppInfo.appIcon}
               alt={props.headerAppInfo.appName}
-              className="dark:invert"
+              className="dark:invert max-sm:w-6 max-sm:h-6"
               width={30}
               height={30}
               priority
             />
-            <span className="inline-block font-semibold">
+            <span className="inline-block font-semibold max-sm:text-xs">
               {props.headerAppInfo.appName}
             </span>
           </Link>
@@ -58,7 +58,7 @@ export function Header(props: HeaderProps) {
         <div className="flex flex-1 items-center justify-end space-x-4 pr-2">
           <nav className="flex items-center space-x-4">
             <ThemeToggle />
-            <div>
+            <div className='max-sm:hidden'>
               <div className="text-xs">{props.headerUserInfo.name}</div>
               <Separator />
               <div className="text-xs">{props.headerUserInfo.email}</div>

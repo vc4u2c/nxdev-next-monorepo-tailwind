@@ -65,7 +65,7 @@ const columns: ColumnDef<Payment>[] = [
       return <Link href={`orders/${orderId}`}>{orderId}</Link>;
     },
     enableSorting: false,
-    enableHiding: false,    
+    enableHiding: false,
   },
   {
     accessorKey: 'status',
