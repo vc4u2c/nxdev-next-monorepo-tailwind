@@ -26,8 +26,8 @@ export function Header(props: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="flex h-14 items-center space-x-4 sm:justify-between sm:space-x-0 pt-0.5">
-        <div className="flex flex-1 items-center justify-start pl-2">
-          <Link href="/" className="flex items-center space-x-2">
+        <div className="flex flex-1 h-8 items-center justify-start pl-2">
+          <Link href="/" className="flex items-center space-x-2 pr-2">
             <Image
               src={props.headerAppInfo.companyIcon}
               alt={props.headerAppInfo.companyName}
@@ -40,8 +40,8 @@ export function Header(props: HeaderProps) {
               {props.headerAppInfo.companyName}
             </span>
           </Link>
-          <Separator orientation="vertical" className="w-[8px]" />
-          <Link href="/" className="flex items-center space-x-2">
+          <Separator orientation="vertical" className="w-[2px]" />
+          <Link href="/" className="flex items-center space-x-2 pl-2">
             <Image
               src={props.headerAppInfo.appIcon}
               alt={props.headerAppInfo.appName}
