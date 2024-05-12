@@ -72,6 +72,11 @@
       "products",
       "shared-ui"
     ],
-    "version": { "conventionalCommits": true }
+    "version": { "conventionalCommits": true },
+    "changelog": {
+      "workspaceChangelog": {
+        "createRelease": "github"
+      }
+    }
   }
 }

@@ -168,6 +168,8 @@ npx nx add @nx/js
 npx nx release --first-release --dry-run
 npx nx release --first-release -d
 npx nx release --first-release
+
+npx nx release
 ```
 
 ## Integrate with editors
