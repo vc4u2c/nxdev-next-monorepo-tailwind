@@ -61,5 +61,17 @@
         "targetName": "e2e"
       }
     }
-  ]
+  ],
+  "release": {
+    "projects": [
+      "store",
+      "store-e2e",
+      "inventory",
+      "inventory-e2e",
+      "orders",
+      "products",
+      "shared-ui"
+    ],
+    "version": { "conventionalCommits": true }
+  }
 }

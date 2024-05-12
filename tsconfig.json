@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./libs/shared/ui/src/*"],
       "@nxdev-next-monorepo-tailwind/orders": ["libs/orders/src/index.ts"],
       "@nxdev-next-monorepo-tailwind/orders/server": [
         "libs/orders/src/server.ts"
@@ -28,8 +29,7 @@
       ],
       "@nxdev-next-monorepo-tailwind/shared-ui/server": [
         "libs/shared/ui/src/server.ts"
-      ],
-      "@/*": ["./libs/shared/ui/src/*"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -157,6 +157,17 @@ npm i @react-hook/window-size
 npm i json-as-xlsx
 ```
 
+## CI/CD Setup
+
+```bash
+https://nx.dev/recipes/nx-release/get-started-with-nx-release
+npx nx add @nx/js
+
+npx nx release --first-release --dry-run
+npx nx release --first-release -d
+npx nx release --first-release
+```
+
 ## Integrate with editors
 
 Enhance your Nx experience by installing [Nx Console](https://nx.dev/nx-console) for your favorite editor. Nx Console
