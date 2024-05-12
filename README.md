@@ -159,8 +159,10 @@ npm i json-as-xlsx
 
 ## CI/CD Setup
 
+- https://nx.dev/recipes/nx-release/get-started-with-nx-release
+- https://www.youtube.com/watch?v=KjZKFGu3_9I
+
 ```bash
-https://nx.dev/recipes/nx-release/get-started-with-nx-release
 npx nx add @nx/js
 
 npx nx release --first-release --dry-run
