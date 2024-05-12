@@ -1,3 +1,14 @@
+## 0.1.1 (2024-05-12)
+
+
+### 🩹 Fixes
+
+- Added nx release ([dab68b2](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/dab68b2))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.1.0 (2024-05-12)
 
 
