@@ -1,0 +1,8 @@
+{
+  "name": "store-e2e",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "store": "0.1.0"
+  }
+}

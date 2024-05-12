@@ -1,0 +1,9 @@
+{
+  "name": "store",
+  "private": false,
+  "version": "0.1.0",
+  "dependencies": {
+    "shared-ui": "0.1.0",
+    "products": "0.1.0"
+  }
+}
