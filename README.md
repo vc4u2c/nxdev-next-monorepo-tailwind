@@ -170,6 +170,7 @@ npx nx release --first-release -d
 npx nx release --first-release
 
 npx nx release
+npx nx release --skip-publish
 ```
 
 ## Integrate with editors
