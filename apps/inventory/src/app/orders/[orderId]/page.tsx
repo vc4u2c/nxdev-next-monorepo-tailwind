@@ -34,22 +34,22 @@ export async function generateStaticParams() {
       orderId: 'ORD009',
     },
     {
-      orderId: 'ORD0010',
+      orderId: 'ORD010',
     },
     {
-      orderId: 'ORD0011',
+      orderId: 'ORD011',
     },
     {
-      orderId: 'ORD0012',
+      orderId: 'ORD012',
     },
     {
-      orderId: 'ORD0013',
+      orderId: 'ORD013',
     },
     {
-      orderId: 'ORD0014',
+      orderId: 'ORD014',
     },
     {
-      orderId: 'ORD0015',
+      orderId: 'ORD015',
     },
   ];
 }

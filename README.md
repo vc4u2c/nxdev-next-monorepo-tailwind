@@ -45,6 +45,10 @@ npx nx graph --affected
 npm audit
 npm audit fix
 npm audit fix --force
+
+# Test static site locally
+npx http-server './dist/apps/store/.next' -p 4200
+npx http-server './dist/apps/inventory/.next' -p 4300
 ```
 
 ## Monorepo Creation Setup
@@ -155,6 +159,9 @@ npm i tailwindcss-debug-screens --save-dev
 
 npm i @react-hook/window-size
 npm i json-as-xlsx
+npm i dev-http-server -D
+npx http-server './dist/apps/store/.next' -p 4200
+npx http-server './dist/apps/inventory/.next' -p 4300
 ```
 
 ## CI/CD Setup
