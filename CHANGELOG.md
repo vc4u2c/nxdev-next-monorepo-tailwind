@@ -1,3 +1,14 @@
+## 0.1.3 (2024-05-13)
+
+
+### 🩹 Fixes
+
+- Change Title ([83c41bd](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/83c41bd))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.1.2 (2024-05-12)
 
 
