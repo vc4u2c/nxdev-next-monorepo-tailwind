@@ -1,3 +1,14 @@
+## 0.2.0 (2024-05-13)
+
+
+### 🚀 Features
+
+- **inventory:** Change padding on Inventory ([ed5b193](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/ed5b193))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.1.3 (2024-05-13)
 
 
