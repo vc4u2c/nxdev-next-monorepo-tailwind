@@ -7,9 +7,7 @@ on:
   pull_request:
 
 # Needed for nx-set-shas when run on the main branch
-permissions:
-  actions: read
-  contents: read
+permissions: write-all 
 
 jobs:
   ci-job:
@@ -41,7 +39,7 @@ jobs:
       - name: Set Default Git identity
         run: |
           git config --global user.email "vc4u2c@gmail.com"
-          git config --global user.name "CI Job"
+          git config --global user.name "github-actions[bot]"
 
       - name: Set SHAs
         uses: nrwl/nx-set-shas@v4
