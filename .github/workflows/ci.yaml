@@ -12,25 +12,40 @@ permissions:
   contents: read
 
 jobs:
-  main:
+  ci-job:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Git Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - run: npx playwright install
-      
       # This line enables distribution
       # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
-      # - run: npx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
-      - run: npm ci
+      # - name: Distribute on Nx Cloud
+      #   run: npx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
 
-      - uses: nrwl/nx-set-shas@v4
-      - run: npx nx affected -t lint test build e2e-ci
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Set SHAs
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Build
+        run: npx nx affected -t lint test build e2e-ci
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

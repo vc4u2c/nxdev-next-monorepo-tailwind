@@ -75,6 +75,7 @@
     "version": { "conventionalCommits": true },
     "changelog": {
       "workspaceChangelog": {
+        "file": "true",
         "createRelease": "github"
       }
     }
