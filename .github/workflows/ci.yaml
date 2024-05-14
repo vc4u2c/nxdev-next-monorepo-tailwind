@@ -49,3 +49,6 @@ jobs:
         with:
           name: dist
           path: dist/
+
+      - name: Create release
+        run: npx nx release

@@ -8,7 +8,7 @@ export interface PageProps {}
 export default function Index(props: PageProps) {
   return (
     <main>
-      <section className="py-4 border-muted rounded-lg flex flex-col items-center text-center ">
+      <section className="py-4 border-muted rounded-lg flex flex-col items-center text-center">
         <PageTitle title="Inventory Home" />
         <p className="text-xl text-muted-foreground">
           This is the Acme Incorporation&apos;s Inventory Management
