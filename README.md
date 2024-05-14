@@ -25,6 +25,9 @@ npx nx run-many -t build
 npx nx serve store
 npx nx serve inventory
 
+# Run all tasks in parallel
+npx nx run-many -t build test lint e2e
+
 # Run Unit tests in parallel
 npx nx run-many -t test
 npx nx view-logs

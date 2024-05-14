@@ -1,6 +1,6 @@
 {
   "name": "inventory",
-  "private": false,
+  "private": true,
   "version": "0.2.0",
   "dependencies": {
     "shared-ui": "0.2.0",

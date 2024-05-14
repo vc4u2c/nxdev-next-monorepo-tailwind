@@ -1,8 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { pathsToModuleNameMapper } = require('ts-jest');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { compilerOptions } = require('../../tsconfig');
-
 /* eslint-disable */
 export default {
   displayName: 'orders',
@@ -13,6 +8,4 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/orders',
-  modulePaths: ['../../'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
 };
