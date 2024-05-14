@@ -38,6 +38,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Set Default Git identity
+        run: |
+          git config --global user.email "vc4u2c@gmail.com"
+          git config --global user.name "CI Job"
+
       - name: Set SHAs
         uses: nrwl/nx-set-shas@v4
 
