@@ -7,7 +7,7 @@ on:
   pull_request:
 
 # Needed for nx-set-shas when run on the main branch
-permissions: write-all 
+permissions: write-all
 
 jobs:
   ci-job:
@@ -63,4 +63,6 @@ jobs:
           path: dist/
 
       - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx nx release
