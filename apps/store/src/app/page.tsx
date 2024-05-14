@@ -9,7 +9,7 @@ export interface PageProps {}
 export default function Index(props: PageProps) {
   return (
     <div>
-      <div className="bg-indigo-500 p-2 font-mono font-bold text-center">
+      <div className="bg-indigo-500 p-2 font-mono font-bold text-center ">
         <div>
           <h1>Store App: Home</h1>
         </div>
