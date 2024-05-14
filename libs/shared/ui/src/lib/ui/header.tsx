@@ -4,6 +4,7 @@ import { Separator } from './separator';
 import { AvatarDropdown } from './avatar-dropdown';
 import { ThemeToggle } from './theme-toggle';
 import Link from 'next/link';
+import Help from './help';
 
 export interface HeaderAppInfo {
   companyName: string;
@@ -57,8 +58,9 @@ export function Header(props: HeaderProps) {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4 pr-2">
           <nav className="flex items-center space-x-4">
+            <Help />
             <ThemeToggle />
-            <div className='max-sm:hidden'>
+            <div className="max-sm:hidden">
               <div className="text-xs">{props.headerUserInfo.name}</div>
               <Separator />
               <div className="text-xs">{props.headerUserInfo.email}</div>

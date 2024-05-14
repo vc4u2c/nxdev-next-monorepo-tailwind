@@ -149,6 +149,7 @@ npx shadcn-ui@latest add select
 npx shadcn-ui@latest add checkbox
 npx shadcn-ui@latest add command
 npx shadcn-ui@latest add toast
+npx shadcn-ui@latest add sheet
 npm i @radix-ui/react-icons
 npm i @tanstack/react-table
 npm i react-icons
