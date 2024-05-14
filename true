@@ -1,0 +1,24 @@
+## 0.2.1 (2024-05-14)
+
+
+### 🩹 Fixes
+
+- GitHub Actions added. Change Inventory home ([81342a8](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/81342a8))
+- Unit tests. Iventory page change ([778205e](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/778205e))
+- page title ([64a761e](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/64a761e))
+- CI Yaml. Minor Page change ([b0f011a](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/b0f011a))
+- ci job. Page title ([6f1b15c](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/6f1b15c))
+- Nx release. Title change ([604a177](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/604a177))
+- Title change for inventory ([875194c](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/875194c))
+- Title changed ([f11d50a](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/f11d50a))
+- Changed Title ([2557e28](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/2557e28))
+- Small change to title ([49966c5](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/49966c5))
+- title change ([1a4f4e5](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/1a4f4e5))
+- Small Change ([5751fa5](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/5751fa5))
+- minor change ([5fde43f](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/5fde43f))
+- Fix CI. Minor title change ([27518cb](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/27518cb))
+- Fix CI. Minor Title change ([b553d3e](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/b553d3e))
+
+### ❤️  Thank You
+
+- vc4u2c
