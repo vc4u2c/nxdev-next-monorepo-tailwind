@@ -1,3 +1,14 @@
+## 0.4.6 (2024-05-16)
+
+
+### 🩹 Fixes
+
+- cd. Title change ([bcf4d27](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/bcf4d27))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.5 (2024-05-16)
 
 
