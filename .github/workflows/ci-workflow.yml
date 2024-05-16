@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}
-      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
-      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
+      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affectedProjects, 'inventory') }}
+      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affectedProjects, 'store') }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -57,8 +57,9 @@ jobs:
         uses: nrwl/nx-set-shas@v4
 
       - name: Check for Affected Projects
-        uses: dkhunt27/action-nx-affected-list@v5
-        id: check-affected-projects
+        run: |
+         affected=$(npx nx show projects --affected)
+         echo "::set-output name=affectedProjects::${affected[*]}"
 
       - name: Lint
         run: npx nx affected -t lint
