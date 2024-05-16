@@ -1,9 +1,9 @@
 {
   "name": "inventory",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "dependencies": {
-    "shared-ui": "0.4.0",
-    "orders": "0.4.0"
+    "shared-ui": "0.4.1",
+    "orders": "0.4.1"
   }
 }
