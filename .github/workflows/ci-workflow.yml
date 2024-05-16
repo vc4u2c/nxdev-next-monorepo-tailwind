@@ -1,0 +1,110 @@
+name: CI Workflow
+on:
+  push:
+    branches:
+      # Change this if your primary branch is not main
+      - main
+  pull_request:
+
+# Needed for nx-set-shas when run on the main branch
+permissions: write-all
+
+jobs:
+  ci-job:
+    name: CI Job
+    runs-on: ubuntu-latest
+    outputs:
+      IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}
+      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
+      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for IaC Changes
+        id: check-iac-changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            src:
+              - './.azure/**'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # This line enables distribution
+      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
+      # - name: Distribute on Nx Cloud
+      #   run: npx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Check for Affected Projects
+        uses: dkhunt27/action-nx-affected-list@v5
+        id: check-affected-projects
+
+      - name: Set Default Git identity
+        run: |
+          git config --global user.email "vc4u2c@gmail.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Set SHAs
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Lint
+        run: npx nx affected -t lint
+
+      - name: Run Unit Tests
+        run: npx nx affected -t test
+
+      - name: Run E2E
+        run: npx nx affected -t e2e
+
+      - name: Build
+        run: npx nx affected -t build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx nx release
+
+  call-cd-workflow-inventory-job:
+    name: Call CD Workflow Job for Inventory
+    runs-on: ubuntu-latest
+    needs: [ci-job]
+    steps:
+      - name: Invoke CD Workflow
+        uses: ./.github/workflows/cd-workflow.yml
+        with:
+          PROJECT_NAME: 'inventory'
+          PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == 'true' }}
+          IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
+        if: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == 'true' }}
+
+  call-cd-workflow-store-job:
+    name: Call CD Workflow Job for Store
+    runs-on: ubuntu-latest
+    needs: [ci-job]
+    steps:
+      - name: Invoke CD Workflow
+        uses: ./.github/workflows/cd-workflow.yml
+        with:
+          PROJECT_NAME: 'store'
+          PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
+          IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
+        if: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' || needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}

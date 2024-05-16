@@ -1,0 +1,131 @@
+name: IaC Workflow
+
+on:
+  workflow_call:
+    inputs:
+      PROJECT_NAME:
+        required: true
+        type: string
+
+      PROJECT_CHANGED:
+        required: true
+        type: boolean
+
+      IAC_CHANGED:
+        required: true
+        type: boolean
+
+      ENVIRONMENT:
+        required: true
+        type: string
+
+permissions: write-all
+
+jobs:
+  validate-iac-job:
+    name: Validate IaC Job
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+    if: ${{ inputs.IAC_CHANGED }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Run Preflight Validation
+        uses: azure/arm-deploy@v2
+        if: inputs.ENVIRONMENT == 'Development'
+        with:
+          resourceGroupName: "${{ vars[format('RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
+          template: ./azure/bicep/main.bicep
+          parameters: >
+            environmentName=${{ inputs.ENVIRONMENT }}"
+            projectName=${{ inputs.PROJECT_NAME }}
+          deploymentMode: Validate
+          scope: 'resourcegroup'
+
+      - name: Run What-If
+        uses: azure/arm-deploy@v2
+        if: inputs.ENVIRONMENT != 'Development'
+        with:
+          failOnStdErr: false
+          resourceGroupName: "${{ vars[format('RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
+          template: ./.azure/bicep/main.bicep
+          parameters: >
+            environmentName=${{ inputs.ENVIRONMENT }}
+            projectName=${{ inputs.PROJECT_NAME }}
+          additionalArguments: --what-if
+          scope: 'resourcegroup'
+
+  deploy-iac-job:
+    name: Deploy IaC Job
+    needs: [validate-iac-job]
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+    if: ${{ inputs.IAC_CHANGED }}
+    env:
+      PROJECT_NAME_UPPER: ${{ inputs.PROJECT_NAME }}.upper()
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Infrastructure
+        uses: azure/arm-deploy@v2
+        if: inputs.ENVIRONMENT != 'Development'
+        with:
+          failOnStdErr: false
+          resourceGroupName: ${{ vars[format('RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}
+          template: ./.azure/bicep/main.bicep
+          parameters: >
+            environmentName=${{ inputs.ENVIRONMENT }}
+            projectName=${{ inputs.PROJECT_NAME }}
+          scope: 'resourcegroup'
+
+  deploy-swa-job:
+    name: Deploy IaC Job
+    needs: [deploy-iac-job]
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout code
+
+      - uses: actions/download-artifact@v4
+        name: Download artifacts
+        with:
+          run-id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: azure/login@v2
+        name: Login to Azure
+        with:
+          client-id: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy SWA
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ vars.SWA_API_TOKEN }} # secret containing api token for app
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: "upload"
+          skip_app_build: true
+          skip_api_build: true
+          is_static_export: true
+          app_location: ./
+          app_artifact_location:
+
