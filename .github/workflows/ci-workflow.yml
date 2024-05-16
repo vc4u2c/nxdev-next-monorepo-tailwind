@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}
-      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.hasAffected, 'inventory') }}
-      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.hasAffected, 'store') }}
+      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
+      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -53,41 +53,25 @@ jobs:
           git config --global user.email "vc4u2c@gmail.com"
           git config --global user.name "github-actions[bot]"
 
+      - name: Set SHAs
+        uses: nrwl/nx-set-shas@v4
+
       - name: Check for Affected Projects
-        uses: 2coo/nx-affected-projects@v1
-        id: check-affected-projects
+        run: |
+          affectedProjects=$(npx nx show projects --affected)
+          echo "::set-output name=affected::${affectedProjects}"
 
       - name: Lint
-        if: steps.check-affected-projects.outputs.hasAffected == 'true'
-        uses: mansagroup/nrwl-nx-action@v2
-        with:
-          targets: lint
-          affected: true
-          nxCloud: false
+        run: npx nx affected -t lint
 
       - name: Run Unit Tests
-        if: steps.check-affected-projects.outputs.hasAffected == 'true'
-        uses: mansagroup/nrwl-nx-action@v2
-        with:
-          targets: test
-          affected: true
-          nxCloud: false
+        run: npx nx affected -t test
 
       - name: Run E2E
-        if: steps.check-affected-projects.outputs.hasAffected == 'true'
-        uses: mansagroup/nrwl-nx-action@v2
-        with:
-          targets: e2e
-          affected: true
-          nxCloud: false
+        run: npx nx affected -t e2e
 
       - name: Build
-        if: steps.check-affected-projects.outputs.hasAffectedApps == 'true'
-        uses: mansagroup/nrwl-nx-action@v2
-        with:
-          targets: build
-          affected: true
-          nxCloud: false
+        run: npx nx affected -t build
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
