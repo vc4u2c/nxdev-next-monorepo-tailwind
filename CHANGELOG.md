@@ -1,3 +1,14 @@
+## 0.4.0 (2024-05-16)
+
+
+### 🚀 Features
+
+- ci-cd. Small title change ([4c50a2b](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/4c50a2b))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.2.0 (2024-05-13)
 
 
