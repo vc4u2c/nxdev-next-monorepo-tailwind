@@ -1,3 +1,16 @@
+## 0.4.2 (2024-05-16)
+
+
+### 🩹 Fixes
+
+- small formatting ([6506c25](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/6506c25))
+- Change to title ([ce6c7bc](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/ce6c7bc))
+- title change ([7ed1a20](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/7ed1a20))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.1 (2024-05-16)
 
 
