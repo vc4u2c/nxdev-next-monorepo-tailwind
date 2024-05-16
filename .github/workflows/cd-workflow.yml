@@ -15,7 +15,9 @@ on:
         required: true
         type: boolean
 
-permissions: write-all
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy-development-job:
