@@ -1,9 +1,9 @@
 {
   "name": "store",
   "private": true,
-  "version": "0.4.6",
+  "version": "0.4.7",
   "dependencies": {
-    "shared-ui": "0.4.6",
-    "products": "0.4.6"
+    "shared-ui": "0.4.7",
+    "products": "0.4.7"
   }
 }

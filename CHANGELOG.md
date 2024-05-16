@@ -1,3 +1,14 @@
+## 0.4.7 (2024-05-16)
+
+
+### 🩹 Fixes
+
+- CI. Changed title ([233f491](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/233f491))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.6 (2024-05-16)
 
 
