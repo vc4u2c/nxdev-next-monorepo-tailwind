@@ -58,8 +58,8 @@ jobs:
 
       - name: Check for Affected Projects
         run: |
-         affected=$(npx nx show projects --affected)
-         echo "::set-output name=affectedProjects::${affected[*]}"
+          affected=$(npx nx show projects --affected)
+          echo "::set-output name=affectedProjects::${affected[*]}"
 
       - name: Lint
         run: npx nx affected -t lint
