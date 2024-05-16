@@ -25,6 +25,9 @@ jobs:
       name: Development
       url: '${{ inputs.PROJECT_NAME }}'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Invoke IaC Workflow
         uses: ./.github/workflows/iac-workflow.yml
         with:

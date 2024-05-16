@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}
-      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affectedProjects, 'inventory') }}
-      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affectedProjects, 'store') }}
+      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.hasAffected, 'inventory') }}
+      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.hasAffected, 'store') }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -53,25 +53,41 @@ jobs:
           git config --global user.email "vc4u2c@gmail.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Set SHAs
-        uses: nrwl/nx-set-shas@v4
-
       - name: Check for Affected Projects
-        run: |
-          affected=$(npx nx show projects --affected)
-          echo "::set-output name=affectedProjects::${affected[*]}"
+        uses: 2coo/nx-affected-projects@v1
+        id: check-affected-projects
 
       - name: Lint
-        run: npx nx affected -t lint
+        if: steps.check-affected-projects.outputs.hasAffected == 'true'
+        uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: lint
+          affected: true
+          nxCloud: false
 
       - name: Run Unit Tests
-        run: npx nx affected -t test
+        if: steps.check-affected-projects.outputs.hasAffected == 'true'
+        uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: test
+          affected: true
+          nxCloud: false
 
       - name: Run E2E
-        run: npx nx affected -t e2e
+        if: steps.check-affected-projects.outputs.hasAffected == 'true'
+        uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: e2e
+          affected: true
+          nxCloud: false
 
       - name: Build
-        run: npx nx affected -t build
+        if: steps.check-affected-projects.outputs.hasAffectedApps == 'true'
+        uses: mansagroup/nrwl-nx-action@v2
+        with:
+          targets: build
+          affected: true
+          nxCloud: false
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
