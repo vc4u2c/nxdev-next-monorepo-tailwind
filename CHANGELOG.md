@@ -1,3 +1,14 @@
+## 0.4.8 (2024-05-16)
+
+
+### 🩹 Fixes
+
+- cd fix. Another change to title ([082885d](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/082885d))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.7 (2024-05-16)
 
 
