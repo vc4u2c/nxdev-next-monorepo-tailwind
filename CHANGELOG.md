@@ -1,3 +1,14 @@
+## 0.4.9 (2024-05-17)
+
+
+### 🩹 Fixes
+
+- cd fix. Store and Inventory title changes ([1c7a7da](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/1c7a7da))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.8 (2024-05-16)
 
 
