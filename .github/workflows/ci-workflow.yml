@@ -14,7 +14,7 @@ jobs:
     name: CI Job
     runs-on: ubuntu-latest
     outputs:
-      IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}
+      IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}
       PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
       PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
     steps:
@@ -62,8 +62,8 @@ jobs:
 
       - name: Print Outputs
         run: |
-          echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}"
-          echo "Affected projects: ${{ steps.check-affected-projects.outputs }}"
+          echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}"
+          echo "Affected projects: ${{ steps.check-affected-projects.outputs.length }}"
           echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs, 'inventory') }}"
           echo "PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs, 'store') }}"
 
