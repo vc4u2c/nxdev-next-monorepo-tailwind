@@ -58,7 +58,13 @@ jobs:
       - name: Check for Affected Projects
         id: check-affected-projects
         run: |
-          PROJECT_INVENTORY_CHANGED=$(npx nx show projects --affected).contains('inventory')
+          PROJECT_INVENTORY_CHANGED=$(npx nx show projects --affected)
+          # Check if the output contains the substring "inventory"
+          if [[ $PROJECT_INVENTORY_CHANGED == *"inventory"* ]]; then
+            PROJECT_INVENTORY_CHANGED=true
+          else
+            PROJECT_INVENTORY_CHANGED=false
+          fi
           echo "PROJECT_INVENTORY_CHANGED=$PROJECT_INVENTORY_CHANGED" >> $GITHUB_ENV
           echo ${{ env.PROJECT_INVENTORY_CHANGED }}
 
