@@ -1,7 +1,7 @@
 param name string
 @allowed(['Free', 'Standard'])
 param sku string = 'Standard'
-// test122222e
+// test122222ew
 
 resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   name: name

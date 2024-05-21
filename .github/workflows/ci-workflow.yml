@@ -60,10 +60,10 @@ jobs:
         run: |
           AFFECTED_PROJECTS_INVENTORY=$(npx nx show projects --affected --type app --exclude store)
           AFFECTED_PROJECTS_STORE=$(npx nx show projects --affected --type app --exclude inventory)
-          echo "PROJECT_INVENTORY_CHANGED=$AFFECTED_PROJECTS_INVENTORY" >> $GITHUB_ENV
-          echo "PROJECT_STORE_CHANGED=$AFFECTED_PROJECTS_STORE" >> $GITHUB_ENV
-          echo ${{ env.PROJECT_INVENTORY_CHANGED }}
-          echo ${{ env.PROJECT_STORE_CHANGED }}
+          echo "AFFECTED_PROJECTS_INVENTORY=$AFFECTED_PROJECTS_INVENTORY" >> "$GITHUB_ENV"
+          echo "AFFECTED_PROJECTS_STORE=$AFFECTED_PROJECTS_STORE" >> "$GITHUB_ENV"
+          echo ${{ env.AFFECTED_PROJECTS_INVENTORY }}
+          echo ${{ env.AFFECTED_PROJECTS_STORE }}
 
       - name: Print Outputs
         run: |
