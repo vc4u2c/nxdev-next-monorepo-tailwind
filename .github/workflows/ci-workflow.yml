@@ -58,9 +58,12 @@ jobs:
       - name: Check for Affected Projects
         id: check-affected-projects
         run: |
-          PROJECT_INVENTORY_CHANGED=$(npx nx show projects --affected)
-          echo "PROJECT_INVENTORY_CHANGED=$PROJECT_INVENTORY_CHANGED" >> $GITHUB_ENV
+          AFFECTED_PROJECTS_INVENTORY=$(npx nx show projects --affected --type app --exclude store)
+          AFFECTED_PROJECTS_STORE=$(npx nx show projects --affected --type app --exclude inventory)
+          echo "PROJECT_INVENTORY_CHANGED=$AFFECTED_PROJECTS_INVENTORY" >> $GITHUB_ENV
+          echo "PROJECT_STORE_CHANGED=$AFFECTED_PROJECTS_STORE" >> $GITHUB_ENV
           echo ${{ env.PROJECT_INVENTORY_CHANGED }}
+          echo ${{ env.PROJECT_STORE_CHANGED }}
 
       - name: Print Outputs
         run: |
