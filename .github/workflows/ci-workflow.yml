@@ -4,7 +4,6 @@ on:
     branches:
       # Change this if your primary branch is not main
       - main
-  pull_request:
 
 # Needed for nx-set-shas when run on the main branch
 permissions: write-all
@@ -14,7 +13,7 @@ jobs:
     name: CI Job
     runs-on: ubuntu-latest
     outputs:
-      IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}
+      IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}
       PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
       PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
     steps:
@@ -58,14 +57,16 @@ jobs:
 
       - name: Check for Affected Projects
         id: check-affected-projects
-        run: npx nx show projects --affected
+        run: |
+          $output = Invoke-Expression "npx nx show projects --affected"
+          echo "::set-output name=affected-projects::$output"
 
       - name: Print Outputs
         run: |
-          echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}"
-          echo "Affected projects: ${{ steps.check-affected-projects.outputs.affected }}"
-          echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs, 'inventory') }}"
-          echo "PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs, 'store') }}"
+          echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}"
+          echo "Affected projects: ${{ steps.check-affected-projects.outputs.affected-projects }}"
+          echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected-projects, 'inventory') }}"
+          echo "PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected-projects, 'store') }}"
 
       # - name: Lint
       #   run: npx nx affected -t lint
@@ -76,38 +77,38 @@ jobs:
       # - name: Run E2E
       #   run: npx nx affected -t e2e
 
-      - name: Build
-        run: npx nx affected -t build
+  #     - name: Build
+  #       run: npx nx affected -t build
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
+  #     - name: Upload Build Artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: dist
+  #         path: dist/
 
-      - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx nx release
+  #     - name: Create release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: npx nx release
 
-  call-cd-workflow-inventory-job:
-    name: Call Inventory CD Workflow Job
-    needs: [ci-job]
-    uses: ./.github/workflows/cd-workflow.yml
-    with:
-      PROJECT_NAME: 'inventory'
-      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == true }}
-      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
-    secrets: inherit
-    if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
+  # call-cd-workflow-inventory-job:
+  #   name: Call Inventory CD Workflow Job
+  #   needs: [ci-job]
+  #   uses: ./.github/workflows/cd-workflow.yml
+  #   with:
+  #     PROJECT_NAME: 'inventory'
+  #     PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == true }}
+  #     IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
+  #   secrets: inherit
+  #   if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
 
-  call-cd-workflow-store-job:
-    name: Call Store CD Workflow Job
-    needs: [ci-job]
-    uses: ./.github/workflows/cd-workflow.yml
-    with:
-      PROJECT_NAME: 'store'
-      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
-      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
-    secrets: inherit
-    if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
+  # call-cd-workflow-store-job:
+  #   name: Call Store CD Workflow Job
+  #   needs: [ci-job]
+  #   uses: ./.github/workflows/cd-workflow.yml
+  #   with:
+  #     PROJECT_NAME: 'store'
+  #     PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
+  #     IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
+  #   secrets: inherit
+  #   if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
