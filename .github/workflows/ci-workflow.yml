@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}
-      PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
-      PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
+      # PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}
+      # PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -58,8 +58,9 @@ jobs:
       - name: Check for Affected Projects
         id: check-affected-projects
         run: |
-          $output = Invoke-Expression "npx nx show projects --affected"
-          echo "::set-output name=affected-projects::$output"
+          echo "PROJECT_INVENTORY_CHANGED=${npx nx show projects --affected}" >> $GITHUB_ENV
+          echo "$PROJECT_INVENTORY_CHANGED"
+          echo ${{ env.PROJECT_INVENTORY_CHANGED }}
 
       - name: Print Outputs
         run: |
