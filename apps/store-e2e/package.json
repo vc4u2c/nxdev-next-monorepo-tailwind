@@ -1,8 +1,8 @@
 {
   "name": "store-e2e",
   "private": true,
-  "version": "0.4.20",
+  "version": "0.4.21",
   "dependencies": {
-    "store": "0.4.20"
+    "store": "0.4.21"
   }
 }
