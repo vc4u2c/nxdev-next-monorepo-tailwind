@@ -1,3 +1,17 @@
+## 0.4.10 (2024-05-21)
+
+
+### 🩹 Fixes
+
+- Cd, changed title ([22e057c](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/22e057c))
+- Change title ([65b4242](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/65b4242))
+- Change title ([7e00034](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/7e00034))
+- Change title ([4ea79a5](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/4ea79a5))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.9 (2024-05-17)
 
 
