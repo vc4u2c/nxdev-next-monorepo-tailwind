@@ -68,7 +68,6 @@ jobs:
           echo "PROJECT_STORE_CHANGED=$PROJECT_STORE_CHANGED" >> "$GITHUB_OUTPUT"
           printf '%s\n' "$PROJECT_INVENTORY_CHANGED"
           printf '%s\n' "$PROJECT_STORE_CHANGED"
-          echp ${{ env. }}
 
       - name: Print Outputs
         run: |
