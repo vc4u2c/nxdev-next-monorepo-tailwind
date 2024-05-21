@@ -1,7 +1,7 @@
 param name string
 @allowed(['Free', 'Standard'])
 param sku string = 'Standard'
-//testesewwwwww
+//testesewwwwwww
 resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   name: name
   location: resourceGroup().location
