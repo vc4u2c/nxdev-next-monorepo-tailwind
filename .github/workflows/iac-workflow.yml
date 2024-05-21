@@ -28,10 +28,21 @@ jobs:
     environment: ${{ inputs.ENVIRONMENT }}
     if: ${{ inputs.IAC_CHANGED }}
     env:
-      PROJECT_NAME_UPPER: inputs.PROJECT_NAME.upper()
+      PROJECT_NAME_UPPER:  ${{ inputs.projectName }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
+
+      - name: Set Environment Variables
+        id: set-environment-variables
+        run: |
+          PROJECT_NAME = ${{ inputs.projectName }}
+          if [[ $PROJECT_NAME == 'inventory' ]]; then
+            PROJECT_NAME_UPPER=INVENTORY
+          else
+            PROJECT_NAME_UPPER=STORE
+          fi
+          echo "PROJECT_NAME_UPPER=$PROJECT_NAME_UPPER" >> "$GITHUB_ENV"
 
       - name: Print Outputs
         run: |
