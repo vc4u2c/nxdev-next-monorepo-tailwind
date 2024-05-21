@@ -1,3 +1,27 @@
+## 0.4.15 (2024-05-21)
+
+
+### 🩹 Fixes
+
+- ci ([8b288da](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/8b288da))
+- ci ([982c9d3](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/982c9d3))
+- ci ([441713b](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/441713b))
+- ci ([ab99e7c](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/ab99e7c))
+- ci ([8e25699](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/8e25699))
+- ci ([49d8a41](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/49d8a41))
+- ci ([00906f8](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/00906f8))
+- ci ([cf1d2ac](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/cf1d2ac))
+- ci ([45d5600](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/45d5600))
+- ci ([434c648](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/434c648))
+- ci ([b34497d](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/b34497d))
+- ci ([5afff47](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/5afff47))
+- ci. title change ([a4878ab](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/a4878ab))
+- ci. ([cc20147](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/cc20147))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.14 (2024-05-21)
 
 
