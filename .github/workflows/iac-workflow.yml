@@ -37,7 +37,7 @@ jobs:
         id: set-environment-variables
         run: |
           PROJECT_NAME=${{ inputs.projectName }}
-          PROJECT_NAME_UPPER=${PROJECT_NAME^^}
+          PROJECT_NAME_UPPER=$(echo "$PROJECT_NAME" | tr '[:lower:]' '[:upper:]')
           # if [[ $PROJECT_NAME == 'inventory' ]]; then
           #   PROJECT_NAME_UPPER=INVENTORY
           # else
