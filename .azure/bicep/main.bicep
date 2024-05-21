@@ -36,7 +36,7 @@ var environmentConfigurationMap = {
 }
 
 module swa 'swa.bicep' = {
-  name: 'swa-${projectName}-${environmentConfigurationMap[environmentName].environmentAbbreviation}'
+  name: 'swa-${deployment().name}'
   params: {
     sku: environmentConfigurationMap[environmentName].swa.sku
     name: 'swa-${projectName}-${environmentConfigurationMap[environmentName].environmentAbbreviation}'

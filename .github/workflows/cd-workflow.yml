@@ -19,7 +19,7 @@ permissions: write-all
 
 jobs:
   deploy-development-job:
-    name: Deploy to Development Job
+    name: Deploy Development Job
     runs-on: ubuntu-latest
     environment:
       name: Development
@@ -37,7 +37,7 @@ jobs:
           ENVIRONMENT: Development
 
   deploy-qa-job:
-    name: Deploy to QA Job
+    name: Deploy QA Job
     runs-on: ubuntu-latest
     needs: [deploy-development-job]
     environment:
@@ -47,13 +47,14 @@ jobs:
       - name: Invoke IaC Workflow
         uses: ./.github/workflows/iac-workflow.yml
         with:
+          branch: 'main'
           PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
           PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
           IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
           ENVIRONMENT: QA
 
   deploy-production-job:
-    name: Deploy to Production Job
+    name: Deploy Production Job
     runs-on: ubuntu-latest
     needs: [deploy-qa-job]
     environment:

@@ -6,7 +6,6 @@ resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   name: name
   location: resourceGroup().location
   tags: null
-  properties: {}
   sku: {
     name: sku
     size: sku

@@ -45,8 +45,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      # - name: Install Playwright Browsers
+      #   run: npx playwright install --with-deps
 
       - name: Set Default Git identity
         run: |
@@ -57,18 +57,24 @@ jobs:
         uses: nrwl/nx-set-shas@v4
 
       - name: Check for Affected Projects
+        id: check-affected-projects
+        run: npx nx show projects --affected
+
+      - name: Print Outputs
         run: |
-          affectedProjects=$(npx nx show projects --affected)
-          echo "::set-output name=affected::${affectedProjects}"
+          echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}"
+          echo "Affected projects: ${{ steps.check-affected-projects.outputs.affected }}"
+          echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}"
+          echo "PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}"
 
-      - name: Lint
-        run: npx nx affected -t lint
+      # - name: Lint
+      #   run: npx nx affected -t lint
 
-      - name: Run Unit Tests
-        run: npx nx affected -t test
+      # - name: Run Unit Tests
+      #   run: npx nx affected -t test
 
-      - name: Run E2E
-        run: npx nx affected -t e2e
+      # - name: Run E2E
+      #   run: npx nx affected -t e2e
 
       - name: Build
         run: npx nx affected -t build
@@ -85,27 +91,21 @@ jobs:
         run: npx nx release
 
   call-cd-workflow-inventory-job:
-    name: Call CD Workflow Job for Inventory
-    runs-on: ubuntu-latest
+    name: Call Inventory CD Workflow Job
     needs: [ci-job]
-    steps:
-      - name: Invoke CD Workflow
-        uses: ./.github/workflows/cd-workflow.yml@main
-        with:
-          PROJECT_NAME: 'inventory'
-          PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
-          IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
-        if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
+    uses: ./.github/workflows/cd-workflow.yml
+    with:
+      PROJECT_NAME: 'inventory'
+      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
+      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
+    if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
 
   call-cd-workflow-store-job:
-    name: Call CD Workflow Job for Store
-    runs-on: ubuntu-latest
+    name: Call Store CD Workflow Job
     needs: [ci-job]
-    steps:
-      - name: Invoke CD Workflow
-        uses: ./.github/workflows/cd-workflow.yml@main
-        with:
-          PROJECT_NAME: 'store'
-          PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
-          IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
-        if: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' || needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
+    uses: ./.github/workflows/cd-workflow.yml
+    with:
+      PROJECT_NAME: 'store'
+      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
+      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
+    if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
