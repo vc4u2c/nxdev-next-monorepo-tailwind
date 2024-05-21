@@ -108,8 +108,8 @@ jobs:
     uses: ./.github/workflows/cd-workflow.yml
     with:
       PROJECT_NAME: 'inventory'
-      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
-      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
+      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == 'true'}}
+      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
     secrets: inherit
     if: (needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED)
 
@@ -119,7 +119,7 @@ jobs:
     uses: ./.github/workflows/cd-workflow.yml
     with:
       PROJECT_NAME: 'store'
-      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
-      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
+      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
+      IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
     secrets: inherit
     if: needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED
