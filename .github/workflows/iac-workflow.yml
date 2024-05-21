@@ -28,7 +28,7 @@ jobs:
     environment: ${{ inputs.ENVIRONMENT }}
     if: ${{ inputs.IAC_CHANGED }}
     env:
-      PROJECT_NAME_UPPER: ${{ inputs.PROJECT_NAME }}.upper()
+      PROJECT_NAME_UPPER: inputs.PROJECT_NAME.upper()
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
