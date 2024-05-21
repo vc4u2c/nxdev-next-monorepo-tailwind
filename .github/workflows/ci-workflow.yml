@@ -63,9 +63,9 @@ jobs:
       - name: Print Outputs
         run: |
           echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.changes.length > 0 }}"
-          echo "Affected projects: ${{ steps.check-affected-projects.outputs.affected }}"
-          echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'inventory') }}"
-          echo "PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected, 'store') }}"
+          echo "Affected projects: ${{ steps.check-affected-projects.outputs }}"
+          echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs, 'inventory') }}"
+          echo "PROJECT_STORE_CHANGED: ${{ contains(steps.check-affected-projects.outputs, 'store') }}"
 
       # - name: Lint
       #   run: npx nx affected -t lint
@@ -96,7 +96,7 @@ jobs:
     uses: ./.github/workflows/cd-workflow.yml
     with:
       PROJECT_NAME: 'inventory'
-      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
+      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == true }}
       IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
     if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
 
@@ -106,6 +106,6 @@ jobs:
     uses: ./.github/workflows/cd-workflow.yml
     with:
       PROJECT_NAME: 'store'
-      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
+      PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == true }}
       IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED }}
     if: ${{ needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
