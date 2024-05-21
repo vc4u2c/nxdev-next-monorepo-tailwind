@@ -1,8 +1,8 @@
 {
   "name": "products",
   "private": true,
-  "version": "0.4.18",
+  "version": "0.4.19",
   "dependencies": {
-    "shared-ui": "0.4.18"
+    "shared-ui": "0.4.19"
   }
 }
