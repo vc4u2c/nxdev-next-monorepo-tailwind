@@ -20,51 +20,32 @@ permissions: write-all
 jobs:
   deploy-development-job:
     name: Deploy Development Job
-    runs-on: ubuntu-latest
-    environment:
-      name: Development
-      url: '${{ inputs.PROJECT_NAME }}'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Invoke IaC Workflow
-        uses: ./.github/workflows/iac-workflow.yml
-        with:
-          PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
-          PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
-          IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
-          ENVIRONMENT: Development
+    uses: ./.github/workflows/iac-workflow.yml
+    with:
+      PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
+      PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
+      IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
+      ENVIRONMENT: Development
+    secrets: inherit
 
   deploy-qa-job:
     name: Deploy QA Job
-    runs-on: ubuntu-latest
     needs: [deploy-development-job]
-    environment:
-      name: QA
-      url: '${{ inputs.PROJECT_NAME }}'
-    steps:
-      - name: Invoke IaC Workflow
-        uses: ./.github/workflows/iac-workflow.yml
-        with:
-          branch: 'main'
-          PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
-          PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
-          IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
-          ENVIRONMENT: QA
+    uses: ./.github/workflows/iac-workflow.yml
+    with:
+      PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
+      PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
+      IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
+      ENVIRONMENT: QA
+    secrets: inherit
 
   deploy-production-job:
     name: Deploy Production Job
-    runs-on: ubuntu-latest
     needs: [deploy-qa-job]
-    environment:
-      name: Production
-      url: '${{ inputs.PROJECT_NAME }}'
-    steps:
-      - name: Invoke IaC Workflow
-        uses: ./.github/workflows/iac-workflow.yml
-        with:
-          PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
-          PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
-          IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
-          ENVIRONMENT: Production
+    uses: ./.github/workflows/iac-workflow.yml
+    with:
+      PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
+      PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
+      IAC_CHANGED: ${{ inputs.IAC_CHANGED }}
+      ENVIRONMENT: Production
+    secrets: inherit
