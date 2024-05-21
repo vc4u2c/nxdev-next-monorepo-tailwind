@@ -64,9 +64,13 @@ jobs:
           echo "AFFECTED_PROJECTS_STORE=$AFFECTED_PROJECTS_STORE" >> "$GITHUB_ENV"
           echo ${{ env.AFFECTED_PROJECTS_INVENTORY }}
           echo ${{ env.AFFECTED_PROJECTS_STORE }}
+          printf '%s\n' "$AFFECTED_PROJECTS_INVENTORY"
+          printf '%s\n' "$AFFECTED_PROJECTS_STORE"
 
       - name: Print Outputs
         run: |
+          printf '%s\n' "$AFFECTED_PROJECTS_INVENTORY"
+          printf '%s\n' "$AFFECTED_PROJECTS_STORE"
           echo "IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}"
           echo "Affected projects: ${{ steps.check-affected-projects.outputs.affected-projects }}"
           echo "PROJECT_INVENTORY_CHANGED: ${{ contains(steps.check-affected-projects.outputs.affected-projects, 'inventory') }}"
