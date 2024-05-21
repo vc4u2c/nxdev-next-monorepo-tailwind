@@ -59,11 +59,19 @@ jobs:
         id: check-affected-projects
         run: |
           AFFECTED_PROJECTS_INVENTORY=$(npx nx show projects --affected --type app --exclude store)
-          PROJECT_INVENTORY_CHANGED = $AFFECTED_PROJECTS_INVENTORY.contains('inventory')
+          if [[ $AFFECTED_PROJECTS_INVENTORY == *"inventory"* ]]; then
+            PROJECT_INVENTORY_CHANGED=true
+          else
+            PROJECT_INVENTORY_CHANGED=false
+          fi
           echo "PROJECT_INVENTORY_CHANGED=$PROJECT_INVENTORY_CHANGED" >> "$GITHUB_ENV"
           echo "PROJECT_INVENTORY_CHANGED=$PROJECT_INVENTORY_CHANGED" >> "$GITHUB_OUTPUT"
           AFFECTED_PROJECTS_STORE=$(npx nx show projects --affected --type app --exclude inventory)
-          PROJECT_STORE_CHANGED = $AFFECTED_PROJECTS_STORE.contains('store')
+          if [[ $AFFECTED_PROJECTS_STORE == *"store"* ]]; then
+            PROJECT_STORE_CHANGED=true
+          else
+            PROJECT_STORE_CHANGED=false
+          fi
           echo "PROJECT_STORE_CHANGED=$PROJECT_STORE_CHANGED" >> "$GITHUB_ENV"
           echo "PROJECT_STORE_CHANGED=$PROJECT_STORE_CHANGED" >> "$GITHUB_OUTPUT"
           printf '%s\n' "$PROJECT_INVENTORY_CHANGED"
@@ -105,12 +113,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ci-job]
     steps:
-     - run: |
-        printf '%s\n' "$isInventory"
-        echo ${{ needs.ci-job.outputs.IAC_CHANGED }}
-        echo ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
-        echo ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
-
+      - run: |
+          printf '%s\n' "$isInventory"
+          echo ${{ needs.ci-job.outputs.IAC_CHANGED }}
+          echo ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED }}
+          echo ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED }}
 
     # uses: ./.github/workflows/cd-workflow.yml
     # with:
