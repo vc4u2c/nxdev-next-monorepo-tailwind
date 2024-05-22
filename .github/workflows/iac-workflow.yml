@@ -146,7 +146,7 @@ jobs:
           ENVIRONMENT="${{ inputs.ENVIRONMENT }}"
           if [[ $ENVIRONMENT == *"Development"* ]]; then
             ENV_ABBR="dev"
-          else if [[ $ENVIRONMENT == *"QA"* ]]; then
+          elif [[ $ENVIRONMENT == *"QA"* ]]; then
             ENV_ABBR="qa"
           else
             ENV_ABBR="prd"
@@ -156,6 +156,7 @@ jobs:
       - name: Print Settings
         run: |
           echo "PROJECT_NAME_UPPER: ${{ env.PROJECT_NAME_UPPER }}"
+          echo "ENV_ABBR: ${{ env.ENV_ABBR }}"
           echo "AZURE_CLIENT_ID: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}"
           echo "AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}"
           echo "AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}"
