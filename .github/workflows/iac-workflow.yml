@@ -116,7 +116,6 @@ jobs:
 
       - name: Deploy Infrastructure
         uses: azure/arm-deploy@v2
-        if: inputs.ENVIRONMENT != 'Development'
         with:
           failOnStdErr: false
           resourceGroupName: ${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}
@@ -167,11 +166,10 @@ jobs:
         with:
           name: dist
           run-id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
-          path: ${{ github.workspace }}
 
       - name: Unzip artifact
         run: |
-          unzip -qq ${{ github.workspace }}/dist.zip -d ${{ github.workspace }}
+          unzip -qq dist.zip -d ${{ github.workspace }}
 
       - uses: azure/login@v2
         name: Login to Azure
