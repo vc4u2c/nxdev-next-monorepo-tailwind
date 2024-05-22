@@ -1,3 +1,14 @@
+## 0.4.29 (2024-05-22)
+
+
+### 🩹 Fixes
+
+- ci ([efac1f3](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/efac1f3))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.28 (2024-05-22)
 
 
