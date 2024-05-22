@@ -56,11 +56,11 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: Run Preflight Validation
-        uses: azure/arm-deploy@v2
         if: inputs.ENVIRONMENT == 'Development'
+        uses: azure/arm-deploy@v2
         with:
           resourceGroupName: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
-          template: ./azure/bicep/main.bicep
+          template: ./.azure/bicep/main.bicep
           parameters: >
             environmentName=${{ inputs.ENVIRONMENT }}
             projectName=${{ inputs.PROJECT_NAME }}
@@ -68,8 +68,8 @@ jobs:
           scope: 'resourcegroup'
 
       - name: Run What-If
-        uses: azure/arm-deploy@v2
         if: inputs.ENVIRONMENT != 'Development'
+        uses: azure/arm-deploy@v2
         with:
           failOnStdErr: false
           resourceGroupName: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
