@@ -166,10 +166,12 @@ jobs:
         with:
           name: dist
           run-id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
+          path: ${{ github.workspace }}
 
       - name: Unzip artifact
         run: |
-          unzip -qq dist.zip -d ${{ github.workspace }}
+         mkdir ${{ github.workspace }}/dist
+         unzip -d "${{ github.workspace }}/dist" "${{ github.workspace }}/dist.zip"
 
       - uses: azure/login@v2
         name: Login to Azure
