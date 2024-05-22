@@ -29,7 +29,7 @@ jobs:
     if: ${{ inputs.IAC_CHANGED }}
 
     steps:
-      - name: Git Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set Environment Variables
@@ -40,12 +40,13 @@ jobs:
           PROJECT_NAME_UPPER=$(echo "$PROJECT_NAME" | tr '[:lower:]' '[:upper:]')
           echo "PROJECT_NAME_UPPER=$PROJECT_NAME_UPPER" >> "$GITHUB_ENV"
 
-      - name: Print Outputs
+      - name: Print Settings
         run: |
           echo "PROJECT_NAME_UPPER: ${{ env.PROJECT_NAME_UPPER }}"
           echo "AZURE_CLIENT_ID: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}"
           echo "AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}"
           echo "AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}"
+          echo "RESOURCE_GROUP_NAME: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
 
       - name: Azure Login
         uses: azure/login@v2
@@ -58,10 +59,10 @@ jobs:
         uses: azure/arm-deploy@v2
         if: inputs.ENVIRONMENT == 'Development'
         with:
-          resourceGroupName: "${{ vars[format('RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
+          resourceGroupName: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
           template: ./azure/bicep/main.bicep
           parameters: >
-            environmentName=${{ inputs.ENVIRONMENT }}"
+            environmentName=${{ inputs.ENVIRONMENT }}
             projectName=${{ inputs.PROJECT_NAME }}
           deploymentMode: Validate
           scope: 'resourcegroup'
@@ -71,7 +72,7 @@ jobs:
         if: inputs.ENVIRONMENT != 'Development'
         with:
           failOnStdErr: false
-          resourceGroupName: "${{ vars[format('RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
+          resourceGroupName: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
           template: ./.azure/bicep/main.bicep
           parameters: >
             environmentName=${{ inputs.ENVIRONMENT }}
@@ -85,11 +86,26 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
     if: ${{ inputs.IAC_CHANGED }}
-    env:
-      PROJECT_NAME_UPPER: ${{ inputs.PROJECT_NAME }}.upper()
+
     steps:
-      - name: Git Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Set Environment Variables
+        id: set-environment-variables
+        run: |
+          PROJECT_NAME="${{ inputs.PROJECT_NAME }}"
+          echo $PROJECT_NAME
+          PROJECT_NAME_UPPER=$(echo "$PROJECT_NAME" | tr '[:lower:]' '[:upper:]')
+          echo "PROJECT_NAME_UPPER=$PROJECT_NAME_UPPER" >> "$GITHUB_ENV"
+
+      - name: Print Settings
+        run: |
+          echo "PROJECT_NAME_UPPER: ${{ env.PROJECT_NAME_UPPER }}"
+          echo "AZURE_CLIENT_ID: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}"
+          echo "AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}"
+          echo "AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}"
+          echo "RESOURCE_GROUP_NAME: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
 
       - name: Azure Login
         uses: azure/login@v2
@@ -103,7 +119,7 @@ jobs:
         if: inputs.ENVIRONMENT != 'Development'
         with:
           failOnStdErr: false
-          resourceGroupName: ${{ vars[format('RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}
+          resourceGroupName: ${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}
           template: ./.azure/bicep/main.bicep
           parameters: >
             environmentName=${{ inputs.ENVIRONMENT }}
@@ -111,20 +127,50 @@ jobs:
           scope: 'resourcegroup'
 
   deploy-swa-job:
-    name: Deploy IaC Job
+    name: Deploy SWA Job
     needs: [deploy-iac-job]
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
     steps:
-      - uses: actions/checkout@v3
-        name: Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v4
-        name: Download artifacts
+      - name: Set Environment Variables
+        id: set-environment-variables
+        run: |
+          PROJECT_NAME="${{ inputs.PROJECT_NAME }}"
+          echo $PROJECT_NAME
+          PROJECT_NAME_UPPER=$(echo "$PROJECT_NAME" | tr '[:lower:]' '[:upper:]')
+          echo "PROJECT_NAME_UPPER=$PROJECT_NAME_UPPER" >> "$GITHUB_ENV"
+          ENVIRONMENT="${{ inputs.ENVIRONMENT }}"
+          if [[ $ENVIRONMENT == *"Development"* ]]; then
+            ENV_ABBR="dev"
+          else if [[ $ENVIRONMENT == *"QA"* ]]; then
+            ENV_ABBR="qa"
+          else
+            ENV_ABBR="prd"
+          fi
+          echo "ENV_ABBR=$ENV_ABBR" >> "$GITHUB_ENV"
+
+      - name: Print Settings
+        run: |
+          echo "PROJECT_NAME_UPPER: ${{ env.PROJECT_NAME_UPPER }}"
+          echo "AZURE_CLIENT_ID: ${{ vars[format('AZURE_CLIENT_ID_{0}', env.PROJECT_NAME_UPPER)] }}"
+          echo "AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}"
+          echo "AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}"
+          echo "RESOURCE_GROUP_NAME: "${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
+          name: artifact
           run-id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ github.workspace }}
+
+      - name: Unzip artifact
+        run: |
+          unzip -qq ${{ github.workspace }}/dist.zip -d ${{ github.workspace }}
 
       - uses: azure/login@v2
         name: Login to Azure
@@ -133,14 +179,21 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Get SWA deployment token
+        uses: azure/CLI@v1
+        id: swa-token
+        with:
+          inlineScript: |
+            SWA_DEPLOYMENT_TOKEN=$(az staticwebapp secrets list -n swa-${{ inputs.PROJECT_NAME }}-${{ env.ENV_ABBR }} -o tsv --query properties.apiKey)
+            echo "::add-mask::$SWA_DEPLOYMENT_TOKEN"
+            echo SWA_DEPLOYMENT_TOKEN=$SWA_DEPLOYMENT_TOKEN >> $GITHUB_ENV
+
       - name: Deploy SWA
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ vars.SWA_API_TOKEN }} # secret containing api token for app
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          azure_static_web_apps_api_token: ${{ env.SWA_DEPLOYMENT_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
           skip_app_build: true
           skip_api_build: true
-          is_static_export: true
-          app_location: ./
-          app_artifact_location:
+          app_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
