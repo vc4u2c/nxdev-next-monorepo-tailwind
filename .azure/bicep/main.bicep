@@ -18,19 +18,19 @@ var environmentConfigurationMap = {
   Production: {
     environmentAbbreviation: 'prd'
     swa: {
-      sku: 'Basic'
+      sku: 'Free'
     }
   }
   QA: {
     environmentAbbreviation: 'qa'
     swa: {
-      sku: 'Basic'
+      sku: 'Free'
     }
   }
   Development: {
     environmentAbbreviation: 'dev'
     swa: {
-      sku: 'Basic'
+      sku: 'Free'
     }
   }
 }
