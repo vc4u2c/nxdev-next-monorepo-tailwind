@@ -194,13 +194,13 @@ az account list
 az account subscription list
 
 # Setup Inventory
-./.scripts/setup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -AzureLocation "eastus" -AzureSubscriptionId "7a75b50d-e8d6-49fe-ab21-cbb159c3fed6" -AzureTenantId "73521cbe-9858-4230-996d-319b8074e103" -ProjectName "inventory"
+./.scripts/setup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -AzureLocation "eastus2" -AzureSubscriptionId "7a75b50d-e8d6-49fe-ab21-cbb159c3fed6" -AzureTenantId "73521cbe-9858-4230-996d-319b8074e103" -ProjectName "inventory"
 
 # Cleanup Inventory
 ./.scripts/cleanup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -ProjectName "inventory"
 
 # Setup Store
-./.scripts/setup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -AzureLocation "eastus" -AzureSubscriptionId "7a75b50d-e8d6-49fe-ab21-cbb159c3fed6" -AzureTenantId "73521cbe-9858-4230-996d-319b8074e103" -ProjectName "store"
+./.scripts/setup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -AzureLocation "eastus2" -AzureSubscriptionId "7a75b50d-e8d6-49fe-ab21-cbb159c3fed6" -AzureTenantId "73521cbe-9858-4230-996d-319b8074e103" -ProjectName "store"
 
 # Cleanup Store
 ./.scripts/cleanup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -ProjectName "store"
