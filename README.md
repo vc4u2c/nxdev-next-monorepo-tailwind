@@ -204,6 +204,9 @@ az account subscription list
 
 # Cleanup Store
 ./.scripts/cleanup.ps1 -GitHubOrganisationName "vc4u2c" -GitHubRepositoryName "nxdev-next-monorepo-tailwind" -ProjectName "store"
+
+# Bicep Test
+az deployment group create -g rg-inventory-dev -f .azure\bicep\main.bicep -p environmentName=Development -p projectName=inventorytest
 ```
 
 ## Integrate with editors
