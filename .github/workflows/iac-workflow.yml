@@ -127,7 +127,6 @@ jobs:
 
   deploy-swa-job:
     name: Deploy SWA Job
-    needs: [deploy-iac-job]
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
