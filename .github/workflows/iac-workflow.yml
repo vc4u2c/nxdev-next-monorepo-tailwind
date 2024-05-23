@@ -168,6 +168,9 @@ jobs:
           run-id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
           path: ${{ github.workspace }}
 
+      - name: List workspace contents
+        run: ls -la ${{ github.workspace }}
+
       - name: Unzip artifact
         run: |
          mkdir ${{ github.workspace }}/dist
