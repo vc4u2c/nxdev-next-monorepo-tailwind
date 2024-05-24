@@ -1,3 +1,14 @@
+## 0.4.49 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- cache ([572e2dd](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/572e2dd))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.48 (2024-05-24)
 
 
