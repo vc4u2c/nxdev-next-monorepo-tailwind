@@ -1,3 +1,14 @@
+## 0.5.1 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- Changed title for apps ([f9d4b96](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/f9d4b96))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.5.0 (2024-05-24)
 
 
