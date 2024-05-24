@@ -45,8 +45,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      # - name: Install Playwright Browsers
-      #   run: npx playwright install --with-deps
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Set Default Git identity
         run: |
@@ -80,14 +80,14 @@ jobs:
           echo "PROJECT_INVENTORY_CHANGED: ${{ steps.check-affected-projects.outputs.PROJECT_INVENTORY_CHANGED }}"
           echo "PROJECT_STORE_CHANGED: ${{ steps.check-affected-projects.outputs.PROJECT_STORE_CHANGED }}"
 
-      # - name: Lint
-      #   run: npx nx affected -t lint
+      - name: Lint
+        run: npx nx affected -t lint
 
-      # - name: Run Unit Tests
-      #   run: npx nx affected -t test
+      - name: Run Unit Tests
+        run: npx nx affected -t test
 
-      # - name: Run E2E
-      #   run: npx nx affected -t e2e
+      - name: Run E2E
+        run: npx nx affected -t e2e
 
       - name: Build
         run: npx nx affected -t build
