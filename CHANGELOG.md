@@ -1,3 +1,15 @@
+## 0.4.50 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- cicd ([ac240af](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/ac240af))
+- cicd ([d46fc3c](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/d46fc3c))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.49 (2024-05-24)
 
 
