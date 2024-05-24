@@ -191,6 +191,11 @@ jobs:
             echo "::add-mask::$SWA_DEPLOYMENT_TOKEN"
             echo SWA_DEPLOYMENT_TOKEN=$SWA_DEPLOYMENT_TOKEN >> $GITHUB_ENV
 
+      - name: Clear cache
+        uses: TheRealRyGuy/clear-cache-action@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Deploy SWA
         uses: Azure/static-web-apps-deploy@v1
         with:
