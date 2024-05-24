@@ -1,9 +1,10 @@
 name: CI
 on:
   push:
-    branches:
-      # Change this if your primary branch is not main
-      - main
+    branches: [$default-branch]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: [$default-branch]
 
 # Needed for nx-set-shas when run on the main branch
 permissions: write-all

@@ -173,7 +173,10 @@ jobs:
           path: ${{ github.workspace }}/dist
 
       - name: Display structure of downloaded files
-        run: ls -la ${{ github.workspace }}/dist
+        run: |
+          ls -la ${{ github.workspace }}/dist
+          cat ${{ github.workspace }}/dist/apps/inventory/.next/index.html
+          cat ${{ github.workspace }}/dist/apps/store/.next/index.html
 
       - uses: azure/login@v2
         name: Login to Azure
@@ -198,7 +201,21 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
           skip_app_build: true
-          app_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
-        #   output_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
-        # env:
-        #   is_static_export: true
+          skip_api_build: true
+          app_artifact_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
+          app_location: "/"
+
+  close-pr:
+    name: Close Pull Request Job
+    permissions:
+      contents: none
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ env.SWA_DEPLOYMENT_TOKEN }}
+          action: "close"
+          app_location: "/"
