@@ -166,7 +166,7 @@ jobs:
           echo "RESOURCE_GROUP_NAME: ${{ vars[format('AZURE_RESOURCE_GROUP_NAME_{0}', env.PROJECT_NAME_UPPER)] }}"
 
       - name: Download artifact
-        uses: dawidd6/action-download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           # run_id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
