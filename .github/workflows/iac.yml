@@ -26,7 +26,7 @@ jobs:
     name: Validate IaC
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
-    if: ${{ inputs.IAC_CHANGED }}
+    if: inputs.IAC_CHANGED
 
     steps:
       - name: Checkout Code
@@ -131,7 +131,7 @@ jobs:
     if: |
       always() &&
       (needs.deploy-iac.result == 'success' || needs.deploy-iac.result == 'skipped') &&
-      (inputs.PROJECT_CHANGED == 'true')
+      (inputs.PROJECT_CHANGED)
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
@@ -198,5 +198,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
           skip_app_build: true
-          skip_api_build: true
           app_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
