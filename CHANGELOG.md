@@ -1,3 +1,14 @@
+## 0.4.44 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- caching ([831074d](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/831074d))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.43 (2024-05-24)
 
 
