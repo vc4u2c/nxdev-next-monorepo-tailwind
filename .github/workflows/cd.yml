@@ -1,4 +1,4 @@
-name: CD Workflow
+name: CD
 
 on:
   workflow_call:
@@ -18,9 +18,9 @@ on:
 permissions: write-all
 
 jobs:
-  deploy-development-job:
-    name: Deploy Development Job
-    uses: ./.github/workflows/iac-workflow.yml
+  deploy-dev:
+    name: Deploy Dev
+    uses: ./.github/workflows/iac.yml
     with:
       PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
       PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
@@ -28,10 +28,10 @@ jobs:
       ENVIRONMENT: Development
     secrets: inherit
 
-  deploy-qa-job:
-    name: Deploy QA Job
-    needs: [deploy-development-job]
-    uses: ./.github/workflows/iac-workflow.yml
+  deploy-qa:
+    name: Deploy QA
+    needs: [deploy-dev]
+    uses: ./.github/workflows/iac.yml
     with:
       PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
       PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}
@@ -39,10 +39,10 @@ jobs:
       ENVIRONMENT: QA
     secrets: inherit
 
-  deploy-production-job:
-    name: Deploy Production Job
-    needs: [deploy-qa-job]
-    uses: ./.github/workflows/iac-workflow.yml
+  deploy-prd:
+    name: Deploy Prd
+    needs: [deploy-qa]
+    uses: ./.github/workflows/iac.yml
     with:
       PROJECT_NAME: '${{ inputs.PROJECT_NAME }}'
       PROJECT_CHANGED: ${{ inputs.PROJECT_CHANGED }}

@@ -1,4 +1,4 @@
-name: CI Workflow
+name: CI
 on:
   push:
     branches:
@@ -9,8 +9,8 @@ on:
 permissions: write-all
 
 jobs:
-  ci-job:
-    name: CI Job
+  ci:
+    name: CI
     runs-on: ubuntu-latest
     outputs:
       IAC_CHANGED: ${{ steps.check-iac-changes.outputs.src }}
@@ -103,24 +103,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx nx release
 
-  call-cd-workflow-inventory-job:
-    name: Call Inventory CD Workflow Job
-    needs: [ci-job]
-    uses: ./.github/workflows/cd-workflow.yml
+  cd-inventory:
+    name: CD Inventory
+    needs: [ci]
+    if: (needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED)
+    uses: ./.github/workflows/cd.yml
     with:
       PROJECT_NAME: 'inventory'
       PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED == 'true'}}
       IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
     secrets: inherit
-    if: (needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_INVENTORY_CHANGED)
 
-  call-cd-workflow-store-job:
-    name: Call Store CD Workflow Job
-    needs: [ci-job]
-    uses: ./.github/workflows/cd-workflow.yml
+  cd-store:
+    name: CD Store
+    needs: [ci]
+    if: needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED
+    uses: ./.github/workflows/cd.yml
     with:
       PROJECT_NAME: 'store'
       PROJECT_CHANGED: ${{ needs.ci-job.outputs.PROJECT_STORE_CHANGED == 'true' }}
       IAC_CHANGED: ${{ needs.ci-job.outputs.IAC_CHANGED == 'true' }}
     secrets: inherit
-    if: needs.ci-job.outputs.IAC_CHANGED || needs.ci-job.outputs.PROJECT_STORE_CHANGED
