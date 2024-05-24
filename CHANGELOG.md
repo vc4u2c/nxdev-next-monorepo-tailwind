@@ -1,3 +1,14 @@
+## 0.4.54 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- Change Page Title ([59f4b7a](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/59f4b7a))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.53 (2024-05-24)
 
 
