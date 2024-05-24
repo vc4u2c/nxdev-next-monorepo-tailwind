@@ -203,10 +203,11 @@ jobs:
           skip_app_build: true
           skip_api_build: true
           app_artifact_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
-          app_location: "/"
+          app_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
 
   close-pr:
     name: Close Pull Request Job
+    needs: [deploy-swa]
     permissions:
       contents: none
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

@@ -11,7 +11,7 @@ export default function Index(props: PageProps) {
     <div>
       <div className="bg-indigo-500 p-2 font-mono font-bold text-center ">
         <div>
-          <h1>Store App: Home</h1>
+          <h1>Store App: Home Test</h1>
         </div>
         <Button>Show Store</Button>
       </div>
