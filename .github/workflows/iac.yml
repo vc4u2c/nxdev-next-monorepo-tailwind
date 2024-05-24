@@ -127,6 +127,10 @@ jobs:
 
   deploy-swa-job:
     name: Deploy SWA Job
+    needs: [deploy-iac]
+    if: |
+      always() &&
+      (needs.deploy-iac.result == 'success' || needs.deploy-iac.result == 'skipped')
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
