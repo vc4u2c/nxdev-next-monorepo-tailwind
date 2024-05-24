@@ -199,4 +199,5 @@ jobs:
           action: 'upload'
           skip_app_build: true
           app_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
-          is_static_export:
+          is_static_export: true
+          output_location: ${{ github.workspace }}/dist/apps/${{ inputs.PROJECT_NAME }}/.next
