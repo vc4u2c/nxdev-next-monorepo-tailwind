@@ -84,7 +84,7 @@ foreach ($rg in $resourceGroups) {
 }
 
 Write-Host "Searching for Azure AD Applications..."
-$appRegistrations = az ad app list  --query "[?contains(displayName, '$ProjectName')].{Name:displayName, AppId:appId}" --output json | ConvertFrom-Json
+$appRegistrations = az ad app list  --query "[?contains(displayName, 'github$ProjectName')].{Name:displayName, AppId:appId}" --output json | ConvertFrom-Json
 
 foreach ($appRegistration in $appRegistrations) {
   $appName = $appRegistration.Name

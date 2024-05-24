@@ -116,7 +116,7 @@ function CreateWorkloadIdentity {
   )
 
   # Create Azure AD Application Registration
-  $applicationRegistrationDetails = $(az ad app create --display-name "appreg-$ProjectName-$environmentAbbr") | ConvertFrom-Json
+  $applicationRegistrationDetails = $(az ad app create --display-name "appreg-github$ProjectName-$environmentAbbr") | ConvertFrom-Json
 
   # Create federated credentials
   $credential = @{
