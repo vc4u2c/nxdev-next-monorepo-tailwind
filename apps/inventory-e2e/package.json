@@ -1,8 +1,8 @@
 {
   "name": "inventory-e2e",
   "private": true,
-  "version": "0.4.39",
+  "version": "0.4.40",
   "dependencies": {
-    "inventory": "0.4.39"
+    "inventory": "0.4.40"
   }
 }
