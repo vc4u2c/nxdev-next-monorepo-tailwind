@@ -1,3 +1,14 @@
+## 0.4.47 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- cicd ([fd7d32a](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/fd7d32a))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.46 (2024-05-24)
 
 
