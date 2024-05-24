@@ -23,7 +23,7 @@ permissions: write-all
 
 jobs:
   validate:
-    name: Validate IaC Job
+    name: Validate IaC
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
     if: ${{ inputs.IAC_CHANGED }}
@@ -81,7 +81,7 @@ jobs:
           scope: 'resourcegroup'
 
   deploy-iac:
-    name: Deploy IaC Job
+    name: Deploy IaC
     needs: [validate]
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
@@ -125,12 +125,13 @@ jobs:
             projectName=${{ inputs.PROJECT_NAME }}
           scope: 'resourcegroup'
 
-  deploy-swa-job:
-    name: Deploy SWA Job
+  deploy-swa:
+    name: Deploy SWA
     needs: [deploy-iac]
     if: |
       always() &&
-      (needs.deploy-iac.result == 'success' || needs.deploy-iac.result == 'skipped')
+      (needs.deploy-iac.result == 'success' || needs.deploy-iac.result == 'skipped') &&
+      (inputs.PROJECT_CHANGED == 'true')
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
@@ -169,15 +170,10 @@ jobs:
         with:
           name: dist
           run_id: ${{ github.event.workflow_run.workflow.workflow_run.workflow.id }}
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/dist
 
       - name: Display structure of downloaded files
-        run: ls -R
-
-      - name: Unzip artifact
-        run: |
-          mkdir ${{ github.workspace }}/dist
-          unzip -d "${{ github.workspace }}/dist" "${{ github.workspace }}/dist.zip"
+        run: ls -la ${{ github.workspace }}/dist
 
       - uses: azure/login@v2
         name: Login to Azure
