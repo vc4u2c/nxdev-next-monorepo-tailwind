@@ -1,3 +1,14 @@
+## 0.4.40 (2024-05-24)
+
+
+### 🩹 Fixes
+
+- ci ([71933e2](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/71933e2))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.39 (2024-05-24)
 
 

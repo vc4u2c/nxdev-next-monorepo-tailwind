@@ -1,8 +1,8 @@
 {
   "name": "orders",
   "private": true,
-  "version": "0.4.39",
+  "version": "0.4.40",
   "dependencies": {
-    "shared-ui": "0.4.39"
+    "shared-ui": "0.4.40"
   }
 }
