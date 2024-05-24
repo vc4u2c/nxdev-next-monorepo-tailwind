@@ -1,3 +1,14 @@
+## 0.5.0 (2024-05-24)
+
+
+### 🚀 Features
+
+- Title Updated ([995faac](https://github.com/vc4u2c/nxdev-next-monorepo-tailwind/commit/995faac))
+
+### ❤️  Thank You
+
+- vc4u2c
+
 ## 0.4.54 (2024-05-24)
 
 
